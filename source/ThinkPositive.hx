@@ -11,6 +11,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 
+// this is main state of the game
 class ThinkPositive extends FlxState {
 	var floor:FlxSprite;
 	var guy:Guy;
