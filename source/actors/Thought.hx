@@ -9,8 +9,8 @@ class Thought extends FlxSprite {
 
 	final SPEED = 60;
 
-	public function new(scene:FlxState, _x:Float, _y:Float) {
-		super(_x, _y);
+	public function new(scene:FlxState, x:Float, y:Float) {
+		super(x, y);
 
 		loadGraphic(AssetPaths.thought_bubble__png, true, 16, 16);
 		setSize(8, 8);
@@ -23,14 +23,18 @@ class Thought extends FlxSprite {
 	override function update(elapsed:Float) {
 		animation.play('think');
 
-		if (FlxG.keys.pressed.LEFT)
+		if (FlxG.keys.pressed.LEFT && FlxG.keys.pressed.RIGHT)
+			velocity.x = 0;
+		else if (FlxG.keys.pressed.LEFT)
 			velocity.x = -SPEED;
 		else if (FlxG.keys.pressed.RIGHT)
 			velocity.x = SPEED;
 		else
 			velocity.x = 0;
 
-		if (FlxG.keys.pressed.UP)
+		if (FlxG.keys.pressed.UP && FlxG.keys.pressed.DOWN)
+			velocity.y = 0;
+		else if (FlxG.keys.pressed.UP)
 			velocity.y = -SPEED;
 		else if (FlxG.keys.pressed.DOWN)
 			velocity.y = SPEED;

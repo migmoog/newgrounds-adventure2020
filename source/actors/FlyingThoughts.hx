@@ -71,10 +71,10 @@ class FlyingThought extends FlxSprite {
 		this.type = type;
 
 		if (x > FlxG.width) {
-			SPEED = FlyingThoughts.rand.float(-45, -75);
+			SPEED = type == GOOD ? FlyingThoughts.rand.float(-45, -75) : FlyingThoughts.rand.float(-60, -75);
 			destroyDistance = -5;
 		} else if (x < 0) {
-			SPEED = FlyingThoughts.rand.float(45, 75);
+			SPEED = type == GOOD ? FlyingThoughts.rand.float(45, 75) : FlyingThoughts.rand.float(60, 75);
 			destroyDistance = FlxG.width + 5;
 		}
 	}
