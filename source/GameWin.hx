@@ -5,8 +5,8 @@ import flixel.FlxState;
 /**
 	TODO: Add game loses and wins
 **/
-class GameOver extends FlxState {
-	override function create() {
+class GameWin extends FlxState {
+	override public function create() {
 		super.create();
 	}
 
