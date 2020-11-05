@@ -5,7 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 
 class Thought extends FlxSprite {
-	public var happiness:Int = 2;
+	public var happiness:Int = 0;
 
 	final SPEED = 60;
 
@@ -23,10 +23,10 @@ class Thought extends FlxSprite {
 	override function update(elapsed:Float) {
 		animation.play('think');
 
-		if (happiness < 0)
-			happiness = 0;
-		else if (happiness > 4)
-			happiness = 4;
+		// if (happiness < 0)
+		// happiness = 0;
+		// else if (happiness > 4)
+		// happiness = 4;
 
 		if (FlxG.keys.pressed.LEFT)
 			velocity.x = -SPEED;

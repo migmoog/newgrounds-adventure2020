@@ -13,6 +13,7 @@ class FaceMeter extends FlxSprite {
 	public function new(scene:FlxState, x:Float, y:Float) {
 		super(x, y);
 		loadGraphic('assets/images/facemeter.png', true, 16, 16);
+		animation.frameIndex = 2;
 
 		scene.add(this);
 	}
@@ -20,6 +21,18 @@ class FaceMeter extends FlxSprite {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		animation.frameIndex = happiness;
+		// animation.frameIndex = Std.int(happiness / 4);
+		switch (happiness) {
+			case -4:
+				animation.frameIndex = 0;
+			case -2:
+				animation.frameIndex = 1;
+			case 0:
+				animation.frameIndex = 2;
+			case 4:
+				animation.frameIndex = 3;
+			case 8:
+				animation.frameIndex = 4;
+		}
 	}
 }
