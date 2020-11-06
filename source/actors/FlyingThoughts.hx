@@ -82,8 +82,10 @@ class FlyingThought extends FlxSprite {
 	override function update(elapsed:Float) {
 		velocity.x = SPEED;
 
-		if (x == destroyDistance)
+		if (x == destroyDistance) {
 			kill();
+			destroy();
+		}
 
 		super.update(elapsed);
 	}
