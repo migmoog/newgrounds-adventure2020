@@ -15,11 +15,11 @@ class ApplicationMain
 	#if !macro
 	public static function main()
 	{
-		lime.system.System.__registerEntryPoint("ADVENT2020haxe", create);
+		lime.system.System.__registerEntryPoint("ADVENT2020", create);
 
 		#if (js && html5)
 		#if (munit || utest)
-		lime.system.System.embed("ADVENT2020haxe", null, 960, 540);
+		lime.system.System.embed("ADVENT2020", null, 960, 540);
 		#end
 		#else
 		create(null);
@@ -32,10 +32,10 @@ class ApplicationMain
 
 		ManifestResources.init(config);
 
-		app.meta["build"] = "7";
+		app.meta["build"] = "8";
 		app.meta["company"] = "HaxeFlixel";
-		app.meta["file"] = "ADVENT2020haxe";
-		app.meta["name"] = "ADVENT2020haxe";
+		app.meta["file"] = "ADVENT2020";
+		app.meta["name"] = "ADVENT2020";
 		app.meta["packageName"] = "com.example.myapp";
 		app.meta["version"] = "0.0.1";
 
@@ -57,7 +57,7 @@ class ApplicationMain
 			minimized: false,
 			parameters: {},
 			resizable: true,
-			title: "ADVENT2020haxe",
+			title: "ADVENT2020",
 			width: 960,
 			x: null,
 			y: null,

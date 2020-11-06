@@ -27,5 +27,5 @@
 -cp export/flash
 -swf-lib obj/assets.swf
 -swf-version 11.8
--swf export/flash/bin/ADVENT2020haxe.swf
+-swf export/flash/bin/ADVENT2020.swf
 -cp export/flash/haxe
