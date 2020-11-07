@@ -67,6 +67,7 @@ class FlyingThought extends FlxSprite {
 	public function new(x:Float, type:FlyingThoughtType) {
 		super(x, FlyingThoughts.rand.float(0, 99));
 		loadGraphic(type == GOOD ? 'assets/images/goodthought.png' : 'assets/images/badthought.png', true, 8, 8);
+		animation.add('fly', [0, 1, 2, 1], 4);
 
 		this.type = type;
 
@@ -75,12 +76,14 @@ class FlyingThought extends FlxSprite {
 			destroyDistance = -5;
 		} else if (x < 0) {
 			SPEED = type == GOOD ? FlyingThoughts.rand.float(45, 75) : FlyingThoughts.rand.float(60, 75);
+			flipX = true;
 			destroyDistance = FlxG.width + 5;
 		}
 	}
 
 	override function update(elapsed:Float) {
 		velocity.x = SPEED;
+		animation.play('fly');
 
 		if (x == destroyDistance) {
 			kill();
