@@ -79,6 +79,13 @@ class ThinkPositive extends FlxState {
 		// !!TODO: set the frameIndex's in FaceMeter and raise the thresholds for changing frames !!
 		faceMeter.happiness = thought.happiness;
 
+		if (faceMeter.happiness == -6) {
+			FlxG.switchState(new GameOver());
+		}
+		if (faceMeter.happiness == 12) {
+			FlxG.switchState(new GameWin());
+		}
+
 		super.update(elapsed);
 	}
 

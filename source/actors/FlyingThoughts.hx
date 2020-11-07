@@ -66,7 +66,7 @@ class FlyingThought extends FlxSprite {
 
 	public function new(x:Float, type:FlyingThoughtType) {
 		super(x, FlyingThoughts.rand.float(0, 99));
-		loadGraphic(type == GOOD ? AssetPaths.goodthought__png : AssetPaths.badthought__png, true, 8, 8);
+		loadGraphic(type == GOOD ? 'assets/images/goodthought.png' : 'assets/images/badthought.png', true, 8, 8);
 
 		this.type = type;
 
