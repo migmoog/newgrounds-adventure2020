@@ -35,7 +35,6 @@ class FlyingThoughts extends FlxGroup {
 		for (i in 0...spawnAmount)
 			add(new FlyingThought(rand.bool() ? -5 : FlxG.width + 5, rand.bool(25) ? GOOD : BAD));
 
-		// recursion is cool!
 		if (canSpawn)
 			new FlxTimer().start(spawnTime, (_) -> {
 				spawnThoughts();
@@ -54,6 +53,9 @@ class FlyingThoughts extends FlxGroup {
 		} else if (timeSinceCreated > 25) {
 			spawnTime = 2;
 			spawnAmount = 4;
+		} else if (timeSinceCreated > 30) {
+			spawnTime = 1.5;
+			spawnAmount = 5;
 		}
 	}
 }
@@ -65,7 +67,7 @@ class FlyingThought extends FlxSprite {
 	var destroyDistance:Float;
 
 	public function new(x:Float, type:FlyingThoughtType) {
-		super(x, FlyingThoughts.rand.float(0, 99));
+		super(x, FlyingThoughts.rand.float(0, 90));
 		loadGraphic(type == GOOD ? 'assets/images/goodthought.png' : 'assets/images/badthought.png', true, 8, 8);
 		animation.add('fly', [0, 1, 2, 1], 4);
 
@@ -76,8 +78,9 @@ class FlyingThought extends FlxSprite {
 			destroyDistance = -5;
 		} else if (x < 0) {
 			SPEED = type == GOOD ? FlyingThoughts.rand.float(45, 75) : FlyingThoughts.rand.float(60, 75);
-			flipX = true;
 			destroyDistance = FlxG.width + 5;
+
+			flipX = true;
 		}
 	}
 
