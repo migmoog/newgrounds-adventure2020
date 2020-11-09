@@ -81,12 +81,10 @@ class ThinkPositive extends FlxState {
 
 		faceMeter.happiness = thought.happiness;
 
-		if (faceMeter.happiness == -7) {
+		if (faceMeter.happiness == faceMeter.minHappy)
 			FlxG.switchState(new GameOver());
-		}
-		if (faceMeter.happiness == 13) {
+		if (faceMeter.happiness == faceMeter.maxHappy)
 			FlxG.switchState(new GameWin());
-		}
 
 		super.update(elapsed);
 	}

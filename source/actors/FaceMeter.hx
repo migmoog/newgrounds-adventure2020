@@ -5,6 +5,8 @@ import flixel.FlxState;
 
 class FaceMeter extends FlxSprite {
 	public var happiness:Int;
+	public final minHappy:Int = -7;
+	public final maxHappy:Int = 11;
 
 	public function new(scene:FlxState, x:Float, y:Float) {
 		super(x, y);
@@ -29,11 +31,11 @@ class FaceMeter extends FlxSprite {
 				animation.frameIndex = 4;
 			case 4:
 				animation.frameIndex = 5;
-			case 8:
+			case 6:
 				animation.frameIndex = 6;
-			case 11:
+			case 8:
 				animation.frameIndex = 7;
-			case 14:
+			case 10:
 				animation.frameIndex = 8;
 		}
 	}
