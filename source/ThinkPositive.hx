@@ -10,6 +10,7 @@ import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
+import flixel.util.FlxTimer;
 
 // this is main state of the game
 class ThinkPositive extends FlxState {
@@ -78,13 +79,12 @@ class ThinkPositive extends FlxState {
 		happinessDebugText.text = Std.string(thought.happiness);
 		// -----
 
-		// !!TODO: set the frameIndex's in FaceMeter and raise the thresholds for changing frames !!
 		faceMeter.happiness = thought.happiness;
 
-		if (faceMeter.happiness == -6) {
+		if (faceMeter.happiness == -7) {
 			FlxG.switchState(new GameOver());
 		}
-		if (faceMeter.happiness == 12) {
+		if (faceMeter.happiness == 13) {
 			FlxG.switchState(new GameWin());
 		}
 
