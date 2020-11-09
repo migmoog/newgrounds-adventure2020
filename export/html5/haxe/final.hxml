@@ -10,31 +10,25 @@
 --macro keep('IntIterator')
 -cp C:/HaxeToolkit/haxe/lib/hscript/2,4,0
 -D hscript=2.4.0
--cp C:/HaxeToolkit/haxe/lib/djFlixel/git
--D djFlixel=0.4.0
 -cp source
--D next
+-D FLX_NO_MOUSE
 -D tools=7.8.0
 -D lime-canvas
--D FLX_NO_DEBUG
 -D howlerjs
 -D no-compilation
 -D openfl-html5
--D NAPE_RELEASE_BUILD
 -D lime-webgl
--D FLX_NO_TOUCH
 -D lime-dom
 -D lime-howlerjs
 -D lime-html5
--D DJFLX_VER=0.4.0
+-D openfl-disable-handle-error
 -D html5
 -D web
 --remap flash:openfl
 --macro flixel.system.macros.FlxDefines.run()
---no-traces
 --connect
 6000
--js export/html5/bin/ADVENT2020haxe.js
+-js export/html5/bin/ADVENT2020.js
 -cp export/html5/haxe
 -D html5
 -dce full

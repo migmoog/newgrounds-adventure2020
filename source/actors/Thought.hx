@@ -12,7 +12,7 @@ class Thought extends FlxSprite {
 	public function new(scene:FlxState, x:Float, y:Float) {
 		super(x, y);
 
-		loadGraphic(AssetPaths.thought_bubble__png, true, 16, 16);
+		loadGraphic('assets/images/thought-bubble.png', true, 16, 16);
 		setSize(8, 8);
 		centerOffsets();
 		animation.add('think', [0, 1, 2, 3], 4);
