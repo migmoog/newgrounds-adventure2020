@@ -47,8 +47,8 @@ class ThinkPositive extends FlxState {
 		thought = new Thought(this, guy.x - 16, guy.y - 5);
 
 		// DEBUG
-		happinessDebugText = new FlxText(0, 0, 0, Std.string(thought.happiness));
-		add(happinessDebugText);
+		// happinessDebugText = new FlxText(0, 0, 0, Std.string(thought.happiness));
+		// add(happinessDebugText);
 		// -----
 
 		super.create();
@@ -76,7 +76,7 @@ class ThinkPositive extends FlxState {
 		}
 
 		// DEBUG
-		happinessDebugText.text = Std.string(thought.happiness);
+		// happinessDebugText.text = Std.string(thought.happiness);
 		// -----
 
 		faceMeter.happiness = thought.happiness;

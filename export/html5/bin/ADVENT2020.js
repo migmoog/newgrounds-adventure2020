@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "14";
+	app.meta.h["build"] = "15";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "ADVENT2020";
 	app.meta.h["name"] = "ADVENT2020";
@@ -5847,8 +5847,6 @@ ThinkPositive.prototype = $extend(flixel_FlxState.prototype,{
 		this.flyingThoughts = new actors_FlyingThoughts(this);
 		this.faceMeter = new actors_FaceMeter(this,this.guy.x - 19,this.guy.y - 12);
 		this.thought = new actors_Thought(this,this.guy.x - 16,this.guy.y - 5);
-		this.happinessDebugText = new flixel_text_FlxText(0,0,0,Std.string(this.thought.happiness));
-		this.add(this.happinessDebugText);
 		flixel_FlxState.prototype.create.call(this);
 	}
 	,update: function(elapsed) {
@@ -5868,7 +5866,6 @@ ThinkPositive.prototype = $extend(flixel_FlxState.prototype,{
 			this.thoughtCircs.members[0].set_flipX(false);
 			this.faceMeter.set_x(this.guy.x - 17);
 		}
-		this.happinessDebugText.set_text(Std.string(this.thought.happiness));
 		this.faceMeter.happiness = this.thought.happiness;
 		if(this.faceMeter.happiness == this.faceMeter.minHappy) {
 			var nextState = new GameOver();
@@ -8895,8 +8892,8 @@ flixel_FlxSprite.prototype = $extend(flixel_FlxObject.prototype,{
 	,__properties__: $extend(flixel_FlxObject.prototype.__properties__,{set_clipRect:"set_clipRect",set_color:"set_color",set_blend:"set_blend",set_flipY:"set_flipY",set_flipX:"set_flipX",set_facing:"set_facing",set_alpha:"set_alpha",set_graphic:"set_graphic",set_frames:"set_frames",set_frame:"set_frame",set_pixels:"set_pixels",get_pixels:"get_pixels",set_antialiasing:"set_antialiasing",set_useFramePixels:"set_useFramePixels"})
 });
 var actors_FaceMeter = function(scene,x,y) {
-	this.maxHappy = 11;
-	this.minHappy = -7;
+	this.maxHappy = 5;
+	this.minHappy = -5;
 	flixel_FlxSprite.call(this,x,y);
 	this.loadGraphic("assets/images/facemeter.png",true,16,16);
 	scene.add(this);
@@ -8911,31 +8908,31 @@ actors_FaceMeter.prototype = $extend(flixel_FlxSprite.prototype,{
 	,update: function(elapsed) {
 		flixel_FlxSprite.prototype.update.call(this,elapsed);
 		switch(this.happiness) {
-		case -6:
+		case -4:
 			this.animation.set_frameIndex(0);
 			break;
-		case -5:
+		case -3:
 			this.animation.set_frameIndex(1);
 			break;
-		case -4:
+		case -2:
 			this.animation.set_frameIndex(2);
 			break;
-		case -2:
+		case -1:
 			this.animation.set_frameIndex(3);
 			break;
 		case 0:
 			this.animation.set_frameIndex(4);
 			break;
-		case 4:
+		case 1:
 			this.animation.set_frameIndex(5);
 			break;
-		case 6:
+		case 2:
 			this.animation.set_frameIndex(6);
 			break;
-		case 8:
+		case 3:
 			this.animation.set_frameIndex(7);
 			break;
-		case 10:
+		case 4:
 			this.animation.set_frameIndex(8);
 			break;
 		}
@@ -77769,7 +77766,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 636776;
+	this.version = 873044;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";
