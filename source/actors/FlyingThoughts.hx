@@ -64,7 +64,7 @@ class FlyingThought extends FlxSprite {
 	public var type:FlyingThoughtType;
 
 	var SPEED:Float;
-	var destroyDistance:Float;
+	var destination:Float;
 
 	public function new(x:Float, type:FlyingThoughtType) {
 		super(x, FlyingThoughts.rand.float(0, 90));
@@ -74,11 +74,11 @@ class FlyingThought extends FlxSprite {
 		this.type = type;
 
 		if (x > FlxG.width) {
-			SPEED = type == GOOD ? FlyingThoughts.rand.float(-45, -75) : FlyingThoughts.rand.float(-60, -75);
-			destroyDistance = -5;
+			SPEED = type == GOOD ? FlyingThoughts.rand.float(-45, -75) : FlyingThoughts.rand.float(-65, -85);
+			destination = -5;
 		} else if (x < 0) {
-			SPEED = type == GOOD ? FlyingThoughts.rand.float(45, 75) : FlyingThoughts.rand.float(60, 75);
-			destroyDistance = FlxG.width + 5;
+			SPEED = type == GOOD ? FlyingThoughts.rand.float(45, 75) : FlyingThoughts.rand.float(65, 85);
+			destination = FlxG.width + 5;
 
 			flipX = true;
 		}
@@ -88,7 +88,7 @@ class FlyingThought extends FlxSprite {
 		velocity.x = SPEED;
 		animation.play('fly');
 
-		if (x == destroyDistance) {
+		if (x == destination) {
 			kill();
 			destroy();
 		}

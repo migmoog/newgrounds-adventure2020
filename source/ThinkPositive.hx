@@ -26,6 +26,7 @@ class ThinkPositive extends FlxState {
 
 	override public function create() {
 		bgColor = 0xff1f2f49;
+
 		if (FlxG.sound.music == null)
 			FlxG.sound.playMusic('assets/music/music.wav', 1, true);
 
@@ -47,8 +48,8 @@ class ThinkPositive extends FlxState {
 		thought = new Thought(this, guy.x - 16, guy.y - 5);
 
 		// DEBUG
-		// happinessDebugText = new FlxText(0, 0, 0, Std.string(thought.happiness));
-		// add(happinessDebugText);
+		happinessDebugText = new FlxText(0, 0, 0, Std.string(thought.happiness));
+		add(happinessDebugText);
 		// -----
 
 		super.create();
@@ -76,7 +77,7 @@ class ThinkPositive extends FlxState {
 		}
 
 		// DEBUG
-		// happinessDebugText.text = Std.string(thought.happiness);
+		happinessDebugText.text = Std.string(thought.happiness);
 		// -----
 
 		faceMeter.happiness = thought.happiness;

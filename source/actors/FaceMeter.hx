@@ -6,7 +6,7 @@ import flixel.FlxState;
 class FaceMeter extends FlxSprite {
 	public var happiness:Int;
 	public final minHappy:Int = -5;
-	public final maxHappy:Int = 5;
+	public final maxHappy:Int = 6;
 
 	public function new(scene:FlxState, x:Float, y:Float) {
 		super(x, y);
