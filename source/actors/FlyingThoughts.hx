@@ -10,6 +10,7 @@ import flixel.util.FlxTimer;
 enum FlyingThoughtType {
 	GOOD;
 	BAD;
+	VERY_BAD;
 }
 
 class FlyingThoughts extends FlxGroup {
@@ -32,8 +33,20 @@ class FlyingThoughts extends FlxGroup {
 	}
 
 	function spawnThoughts() {
-		for (i in 0...spawnAmount)
-			add(new FlyingThought(rand.bool() ? -5 : FlxG.width + 5, rand.bool(25) ? GOOD : BAD));
+		for (i in 0...spawnAmount) {
+			var statePickInt:Int = rand.int(0,2);
+			add(
+				new FlyingThought(
+					rand.bool() ? -5 : FlxG.width + 5, 
+					if (statePickInt == 0)
+						GOOD
+					else if (statePickInt == 2)
+						BAD
+					else
+						VERY_BAD
+				)
+			);
+		}
 
 		if (canSpawn)
 			new FlxTimer().start(spawnTime, (_) -> {
@@ -68,7 +81,16 @@ class FlyingThought extends FlxSprite {
 
 	public function new(x:Float, type:FlyingThoughtType) {
 		super(x, FlyingThoughts.rand.float(0, 90));
-		loadGraphic(type == GOOD ? 'assets/images/goodthought.png' : 'assets/images/badthought.png', true, 8, 8);
+		loadGraphic(
+			if (type == GOOD)  
+				'assets/images/goodthought.png' 
+			else if (type == BAD) 
+				'assets/images/badthought.png'
+			else 
+				'assets/images/verybadthought.png'
+			, true, 8, 8
+		);
+		
 		animation.add('fly', [0, 1, 2, 1], 4);
 
 		this.type = type;

@@ -10,7 +10,6 @@ import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
-import flixel.util.FlxTimer;
 
 // this is main state of the game
 class ThinkPositive extends FlxState {
@@ -25,7 +24,7 @@ class ThinkPositive extends FlxState {
 	var happinessDebugText:FlxText;
 
 	override public function create() {
-		bgColor = 0xff1f2f49;
+		FlxG.cameras.bgColor = 0xff1f2f49;
 
 		if (FlxG.sound.music == null)
 			FlxG.sound.playMusic('assets/music/music.wav', 1, true);
@@ -61,8 +60,10 @@ class ThinkPositive extends FlxState {
 
 			if (flyingThought.type == GOOD) {
 				thought.happiness++;
-			} else {
+			} else if (flyingThought.type == BAD) {
 				thought.happiness--;
+			} else {
+				thought.happiness -= 4;
 			}
 		});
 
