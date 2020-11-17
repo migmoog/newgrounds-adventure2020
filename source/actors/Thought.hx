@@ -23,6 +23,7 @@ class Thought extends FlxSprite {
 	override function update(elapsed:Float) {
 		animation.play('think');
 
+		#if web
 		if (FlxG.keys.pressed.LEFT && FlxG.keys.pressed.RIGHT)
 			velocity.x = 0;
 		else if (FlxG.keys.pressed.LEFT)
@@ -40,6 +41,11 @@ class Thought extends FlxSprite {
 			velocity.y = SPEED;
 		else
 			velocity.y = 0;
+		#end
+
+		#if FLX_NO_KEYBOARD
+		// if (FlxG.touching)
+		#end
 
 		super.update(elapsed);
 	}

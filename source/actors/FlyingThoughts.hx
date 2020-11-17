@@ -63,13 +63,16 @@ class FlyingThoughts extends FlxGroup {
 		if (timeSinceCreated > 10) {
 			spawnTime = 2.5;
 			spawnAmount = 3;
-		} else if (timeSinceCreated > 25) {
+		} else if (timeSinceCreated > 12) {
 			spawnTime = 2;
 			spawnAmount = 4;
-		} else if (timeSinceCreated > 30) {
+		} else if (timeSinceCreated > 17) {
 			spawnTime = 1.5;
 			spawnAmount = 5;
-		}
+		} else if (timeSinceCreated > 20) {
+			spawnTime = 1;
+			spawnAmount = 6;
+		} 
 	}
 }
 

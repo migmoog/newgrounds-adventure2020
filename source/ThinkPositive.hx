@@ -58,16 +58,15 @@ class ThinkPositive extends FlxState {
 		FlxG.overlap(thought, flyingThoughts, (thought, flyingThought) -> {
 			flyingThought.destroy();
 
-			if (flyingThought.type == GOOD) {
+			if (flyingThought.type == GOOD)
 				thought.happiness++;
-			} else if (flyingThought.type == BAD) {
+			else if (flyingThought.type == BAD)
 				thought.happiness--;
-			} else {
+			else
 				thought.happiness -= 4;
-			}
 		});
 
-		placeOnLine(thoughtCircs.members, guy.x + 6, guy.y, thought.x + 8, thought.y + 8);
+		placeOnLine(thoughtCircs.members, guy.x + (guy.width / 2), guy.y, thought.x + (thought.width / 2), thought.y + (thought.height / 2));
 
 		if (thought.x < thoughtCircs.members[0].x) {
 			thoughtCircs.members[0].flipX = true;
@@ -119,8 +118,8 @@ class ThinkPositive extends FlxState {
 			var item = items[i];
 			var point = points[i];
 
-			item.x = point.x - 4;
-			item.y = point.y - 4;
+			item.x = point.x - (item.width / 2);
+			item.y = point.y - (item.width / 2);
 		}
 	}
 }
