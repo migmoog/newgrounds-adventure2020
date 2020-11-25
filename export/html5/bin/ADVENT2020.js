@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "18";
+	app.meta.h["build"] = "21";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "ADVENT2020";
 	app.meta.h["name"] = "ADVENT2020";
@@ -5339,6 +5339,13 @@ GameOver.prototype = $extend(flixel_FlxState.prototype,{
 		this.add(new flixel_FlxSprite(0,0).loadGraphic("assets/images/gameover.png"));
 	}
 	,update: function(elapsed) {
+		var _this = flixel_FlxG.keys.pressed;
+		if(_this.keyManager.checkStatus(82,_this.status)) {
+			var nextState = new ThinkPositive();
+			if(flixel_FlxG.game._state.switchTo(nextState)) {
+				flixel_FlxG.game._requestedState = nextState;
+			}
+		}
 		flixel_FlxState.prototype.update.call(this,elapsed);
 	}
 	,__class__: GameOver
@@ -6127,6 +6134,7 @@ ThinkPositive.prototype = $extend(flixel_FlxState.prototype,{
 				thought.happiness -= 4;
 			}
 		});
+		flixel_util_FlxSpriteUtil.bound(this.thought,0,flixel_FlxG.width,0,flixel_FlxG.height);
 		this.placeOnLine(this.thoughtCircs.members,this.guy.x + this.guy.get_width() / 2,this.guy.y,this.thought.x + this.thought.get_width() / 2,this.thought.y + this.thought.get_height() / 2);
 		if(this.thought.x < this.thoughtCircs.members[0].x) {
 			this.thoughtCircs.members[0].set_flipX(true);
@@ -6142,8 +6150,7 @@ ThinkPositive.prototype = $extend(flixel_FlxState.prototype,{
 			if(flixel_FlxG.game._state.switchTo(nextState)) {
 				flixel_FlxG.game._requestedState = nextState;
 			}
-		}
-		if(this.faceMeter.happiness == this.faceMeter.maxHappy) {
+		} else if(this.faceMeter.happiness == this.faceMeter.maxHappy) {
 			var nextState = new GameWin();
 			if(flixel_FlxG.game._state.switchTo(nextState)) {
 				flixel_FlxG.game._requestedState = nextState;
@@ -9441,7 +9448,6 @@ actors_FlyingThoughts.prototype = $extend(flixel_group_FlxTypedGroup.prototype,{
 		}
 	}
 	,update: function(elapsed) {
-		flixel_group_FlxTypedGroup.prototype.update.call(this,elapsed);
 		this.remove(this.getFirstDead());
 		this.timeSinceCreated += elapsed;
 		if(this.timeSinceCreated > 10) {
@@ -9450,13 +9456,14 @@ actors_FlyingThoughts.prototype = $extend(flixel_group_FlxTypedGroup.prototype,{
 		} else if(this.timeSinceCreated > 12) {
 			this.spawnTime = 2;
 			this.spawnAmount = 4;
-		} else if(this.timeSinceCreated > 17) {
+		} else if(this.timeSinceCreated > 14) {
 			this.spawnTime = 1.5;
 			this.spawnAmount = 5;
-		} else if(this.timeSinceCreated > 20) {
+		} else if(this.timeSinceCreated > 16) {
 			this.spawnTime = 1;
 			this.spawnAmount = 6;
 		}
+		flixel_group_FlxTypedGroup.prototype.update.call(this,elapsed);
 	}
 	,__class__: actors_FlyingThoughts
 });
@@ -68929,7 +68936,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 994094;
+	this.version = 343940;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";

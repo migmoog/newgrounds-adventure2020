@@ -34,18 +34,8 @@ class FlyingThoughts extends FlxGroup {
 
 	function spawnThoughts() {
 		for (i in 0...spawnAmount) {
-			var statePickInt:Int = rand.int(0,2);
-			add(
-				new FlyingThought(
-					rand.bool() ? -5 : FlxG.width + 5, 
-					if (statePickInt == 0)
-						GOOD
-					else if (statePickInt == 2)
-						BAD
-					else
-						VERY_BAD
-				)
-			);
+			var statePickInt:Int = rand.int(0, 2);
+			add(new FlyingThought(rand.bool() ? -5 : FlxG.width + 5, if (statePickInt == 0) GOOD else if (statePickInt == 2) BAD else VERY_BAD));
 		}
 
 		if (canSpawn)
@@ -55,8 +45,6 @@ class FlyingThoughts extends FlxGroup {
 	}
 
 	override function update(elapsed:Float) {
-		super.update(elapsed);
-
 		remove(getFirstDead());
 
 		timeSinceCreated += elapsed;
@@ -66,13 +54,14 @@ class FlyingThoughts extends FlxGroup {
 		} else if (timeSinceCreated > 12) {
 			spawnTime = 2;
 			spawnAmount = 4;
-		} else if (timeSinceCreated > 17) {
+		} else if (timeSinceCreated > 14) {
 			spawnTime = 1.5;
 			spawnAmount = 5;
-		} else if (timeSinceCreated > 20) {
+		} else if (timeSinceCreated > 16) {
 			spawnTime = 1;
 			spawnAmount = 6;
-		} 
+		}
+		super.update(elapsed);
 	}
 }
 
@@ -84,16 +73,10 @@ class FlyingThought extends FlxSprite {
 
 	public function new(x:Float, type:FlyingThoughtType) {
 		super(x, FlyingThoughts.rand.float(0, 90));
-		loadGraphic(
-			if (type == GOOD)  
-				'assets/images/goodthought.png' 
-			else if (type == BAD) 
-				'assets/images/badthought.png'
-			else 
-				'assets/images/verybadthought.png'
-			, true, 8, 8
-		);
-		
+		loadGraphic(if (type == GOOD) 'assets/images/goodthought.png' else if (type == BAD) 'assets/images/badthought.png' else
+			'assets/images/verybadthought.png',
+			true, 8, 8);
+
 		animation.add('fly', [0, 1, 2, 1], 4);
 
 		this.type = type;

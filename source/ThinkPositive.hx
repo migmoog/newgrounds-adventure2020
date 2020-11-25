@@ -10,6 +10,7 @@ import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
+import flixel.util.FlxSpriteUtil;
 
 // this is main state of the game
 class ThinkPositive extends FlxState {
@@ -66,6 +67,8 @@ class ThinkPositive extends FlxState {
 				thought.happiness -= 4;
 		});
 
+		FlxSpriteUtil.bound(thought, 0, FlxG.width, 0, FlxG.height);
+
 		placeOnLine(thoughtCircs.members, guy.x + (guy.width / 2), guy.y, thought.x + (thought.width / 2), thought.y + (thought.height / 2));
 
 		if (thought.x < thoughtCircs.members[0].x) {
@@ -84,7 +87,7 @@ class ThinkPositive extends FlxState {
 
 		if (faceMeter.happiness == faceMeter.minHappy)
 			FlxG.switchState(new GameOver());
-		if (faceMeter.happiness == faceMeter.maxHappy)
+		else if (faceMeter.happiness == faceMeter.maxHappy)
 			FlxG.switchState(new GameWin());
 
 		super.update(elapsed);
