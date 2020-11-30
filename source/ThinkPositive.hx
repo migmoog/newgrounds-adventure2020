@@ -47,10 +47,8 @@ class ThinkPositive extends FlxState {
 		faceMeter = new FaceMeter(this, guy.x - 19, guy.y - 12);
 		thought = new Thought(this, guy.x - 16, guy.y - 5);
 
-		// DEBUG
 		happinessDebugText = new FlxText(0, 0, 0, Std.string(thought.happiness));
 		add(happinessDebugText);
-		// -----
 
 		super.create();
 	}
@@ -79,15 +77,12 @@ class ThinkPositive extends FlxState {
 			faceMeter.x = guy.x - 17;
 		}
 
-		// DEBUG
 		happinessDebugText.text = Std.string(thought.happiness);
-		// -----
-
 		faceMeter.happiness = thought.happiness;
 
-		if (faceMeter.happiness == faceMeter.minHappy)
+		if (faceMeter.happiness <= faceMeter.minHappy)
 			FlxG.switchState(new GameOver());
-		else if (faceMeter.happiness == faceMeter.maxHappy)
+		else if (faceMeter.happiness >= faceMeter.maxHappy)
 			FlxG.switchState(new GameWin());
 
 		super.update(elapsed);
