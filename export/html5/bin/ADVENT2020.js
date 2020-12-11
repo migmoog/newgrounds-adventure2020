@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "23";
+	app.meta.h["build"] = "24";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "ADVENT2020";
 	app.meta.h["name"] = "ADVENT2020";
@@ -5361,11 +5361,18 @@ GameWin.__super__ = flixel_FlxState;
 GameWin.prototype = $extend(flixel_FlxState.prototype,{
 	endGraphic: null
 	,create: function() {
-		flixel_FlxState.prototype.create.call(this);
 		this.endGraphic = new flixel_FlxSprite(0,0).loadGraphic("assets/images/gamewin.png");
 		this.add(this.endGraphic);
+		flixel_FlxState.prototype.create.call(this);
 	}
 	,update: function(elapsed) {
+		var _this = flixel_FlxG.keys.pressed;
+		if(_this.keyManager.checkStatus(82,_this.status)) {
+			var nextState = new ThinkPositive();
+			if(flixel_FlxG.game._state.switchTo(nextState)) {
+				flixel_FlxG.game._requestedState = nextState;
+			}
+		}
 		flixel_FlxState.prototype.update.call(this,elapsed);
 	}
 	,__class__: GameWin
@@ -68940,7 +68947,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 678804;
+	this.version = 732695;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";
