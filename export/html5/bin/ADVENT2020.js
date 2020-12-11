@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "24";
+	app.meta.h["build"] = "25";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "ADVENT2020";
 	app.meta.h["name"] = "ADVENT2020";
@@ -5480,7 +5480,7 @@ ManifestResources.init = function(config) {
 	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$flixel_$fonts_$nokiafc22_$ttf);
 	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$flixel_$fonts_$monsterrat_$ttf);
 	var bundle;
-	var data = "{\"name\":null,\"assets\":\"aoy4:pathy32:assets%2Fimages%2Fbadthought.asey4:sizei661y4:typey6:BINARYy2:idR1y7:preloadtgoR0y32:assets%2Fimages%2Fbadthought.pngR2i277R3y5:IMAGER5R7R6tgoR0y31:assets%2Fimages%2Ffacemeter.aseR2i1022R3R4R5R9R6tgoR0y31:assets%2Fimages%2Ffacemeter.pngR2i810R3R8R5R10R6tgoR0y27:assets%2Fimages%2Ffloor.aseR2i400R3R4R5R11R6tgoR0y27:assets%2Fimages%2Ffloor.pngR2i136R3R8R5R12R6tgoR0y30:assets%2Fimages%2Fgameover.pngR2i19795R3R8R5R13R6tgoR0y29:assets%2Fimages%2Fgamewin.pngR2i24152R3R8R5R14R6tgoR0y33:assets%2Fimages%2Fgoodthought.aseR2i584R3R4R5R15R6tgoR0y33:assets%2Fimages%2Fgoodthought.pngR2i210R3R8R5R16R6tgoR0y25:assets%2Fimages%2Fguy.aseR2i603R3R4R5R17R6tgoR0y25:assets%2Fimages%2Fguy.pngR2i289R3R8R5R18R6tgoR0y36:assets%2Fimages%2Fthought-bubble.aseR2i659R3R4R5R19R6tgoR0y36:assets%2Fimages%2Fthought-bubble.pngR2i270R3R8R5R20R6tgoR0y34:assets%2Fimages%2Fthoughtchain.aseR2i390R3R4R5R21R6tgoR0y34:assets%2Fimages%2Fthoughtchain.pngR2i122R3R8R5R22R6tgoR0y36:assets%2Fimages%2Fverybadthought.aseR2i662R3R4R5R23R6tgoR0y36:assets%2Fimages%2Fverybadthought.pngR2i280R3R8R5R24R6tgoR2i25537898R3y5:SOUNDR5y26:assets%2Fmusic%2Fmusic.wavy9:pathGroupaR26hR6tgoR0y36:assets%2Fsounds%2Fsounds-go-here.txtR2zR3y4:TEXTR5R28R6tgoR2i2114R3y5:MUSICR5y26:flixel%2Fsounds%2Fbeep.mp3R27aR31y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R30R5y28:flixel%2Fsounds%2Fflixel.mp3R27aR33y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3R25R5R32R27aR31R32hgoR2i33629R3R25R5R34R27aR33R34hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R35R36y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R8R5R41R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R8R5R42R6tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
+	var data = "{\"name\":null,\"assets\":\"aoy4:pathy32:assets%2Fimages%2Fbadthought.asey4:sizei661y4:typey6:BINARYy2:idR1y7:preloadtgoR0y32:assets%2Fimages%2Fbadthought.pngR2i277R3y5:IMAGER5R7R6tgoR0y31:assets%2Fimages%2Ffacemeter.aseR2i1022R3R4R5R9R6tgoR0y31:assets%2Fimages%2Ffacemeter.pngR2i810R3R8R5R10R6tgoR0y27:assets%2Fimages%2Ffloor.aseR2i400R3R4R5R11R6tgoR0y27:assets%2Fimages%2Ffloor.pngR2i136R3R8R5R12R6tgoR0y30:assets%2Fimages%2Fgameover.pngR2i82998R3R8R5R13R6tgoR0y29:assets%2Fimages%2Fgamewin.pngR2i82998R3R8R5R14R6tgoR0y33:assets%2Fimages%2Fgoodthought.aseR2i584R3R4R5R15R6tgoR0y33:assets%2Fimages%2Fgoodthought.pngR2i210R3R8R5R16R6tgoR0y25:assets%2Fimages%2Fguy.aseR2i603R3R4R5R17R6tgoR0y25:assets%2Fimages%2Fguy.pngR2i289R3R8R5R18R6tgoR0y36:assets%2Fimages%2Fthought-bubble.aseR2i659R3R4R5R19R6tgoR0y36:assets%2Fimages%2Fthought-bubble.pngR2i270R3R8R5R20R6tgoR0y34:assets%2Fimages%2Fthoughtchain.aseR2i390R3R4R5R21R6tgoR0y34:assets%2Fimages%2Fthoughtchain.pngR2i122R3R8R5R22R6tgoR0y36:assets%2Fimages%2Fverybadthought.aseR2i662R3R4R5R23R6tgoR0y36:assets%2Fimages%2Fverybadthought.pngR2i280R3R8R5R24R6tgoR2i25537898R3y5:SOUNDR5y26:assets%2Fmusic%2Fmusic.wavy9:pathGroupaR26hR6tgoR0y36:assets%2Fsounds%2Fsounds-go-here.txtR2zR3y4:TEXTR5R28R6tgoR2i2114R3y5:MUSICR5y26:flixel%2Fsounds%2Fbeep.mp3R27aR31y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R30R5y28:flixel%2Fsounds%2Fflixel.mp3R27aR33y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3R25R5R32R27aR31R32hgoR2i33629R3R25R5R34R27aR33R34hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R35R36y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R8R5R41R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R8R5R42R6tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
 	var manifest = lime_utils_AssetManifest.parse(data,ManifestResources.rootPath);
 	var library = lime_utils_AssetLibrary.fromManifest(manifest);
 	lime_utils_Assets.registerLibrary("default",library);
@@ -68947,7 +68947,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 732695;
+	this.version = 718240;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";
