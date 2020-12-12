@@ -14,7 +14,7 @@ enum FlyingThoughtType {
 }
 
 class FlyingThoughts extends FlxGroup {
-	var canSpawn:Bool = false;
+	public var canSpawn:Bool = false;
 	var timeSinceCreated:Float = 0;
 	var spawnTime:Float = 3;
 	var spawnAmount:Int = 2;

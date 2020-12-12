@@ -11,6 +11,18 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.util.FlxSpriteUtil;
+import flixel.util.FlxTimer;
+
+class Creds extends FlxState {
+	override public function create() {
+		add(new FlxSprite(0, 0).loadGraphic('assets/images/creds.png'));
+		new FlxTimer().start(1.50, function(_) {
+			FlxG.switchState(new ThinkPositive());
+		});
+		
+		super.create();
+	}
+}
 
 // this is main state of the game
 class ThinkPositive extends FlxState {
