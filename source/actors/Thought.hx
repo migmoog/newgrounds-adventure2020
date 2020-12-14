@@ -23,28 +23,29 @@ class Thought extends FlxSprite {
 	override function update(elapsed:Float) {
 		animation.play('think');
 
+		var left:Bool = FlxG.keys.anyPressed([LEFT, A]);
+		var right:Bool = FlxG.keys.anyPressed([RIGHT, D]);
+		var up:Bool = FlxG.keys.anyPressed([UP, W]);
+		var down:Bool = FlxG.keys.anyPressed([DOWN, S]); 
+
 		#if web
-		if (FlxG.keys.pressed.LEFT && FlxG.keys.pressed.RIGHT)
+		if (left && right)
 			velocity.x = 0;
-		else if (FlxG.keys.pressed.LEFT)
+		else if (left)
 			velocity.x = -SPEED;
-		else if (FlxG.keys.pressed.RIGHT)
+		else if (right)
 			velocity.x = SPEED;
 		else
 			velocity.x = 0;
 
-		if (FlxG.keys.pressed.UP && FlxG.keys.pressed.DOWN)
+		if (up && down)
 			velocity.y = 0;
-		else if (FlxG.keys.pressed.UP)
+		else if (up)
 			velocity.y = -SPEED;
-		else if (FlxG.keys.pressed.DOWN)
+		else if (down)
 			velocity.y = SPEED;
 		else
 			velocity.y = 0;
-		#end
-
-		#if FLX_NO_KEYBOARD
-		// if (FlxG.touching)
 		#end
 
 		super.update(elapsed);

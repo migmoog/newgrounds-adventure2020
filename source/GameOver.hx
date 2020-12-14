@@ -15,7 +15,7 @@ class GameOver extends FlxState {
 	}
 
 	override function update(elapsed:Float) {
-		if (FlxG.keys.pressed.R) {
+		if (FlxG.keys.pressed.A) {
 			FlxG.switchState(new ThinkPositive());
 		}
 

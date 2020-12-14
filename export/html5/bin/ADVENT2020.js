@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "26";
+	app.meta.h["build"] = "27";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "ADVENT2020";
 	app.meta.h["name"] = "ADVENT2020";
@@ -4499,96 +4499,6 @@ DocumentClass.__super__ = Main;
 DocumentClass.prototype = $extend(Main.prototype,{
 	__class__: DocumentClass
 });
-var EReg = function(r,opt) {
-	this.r = new RegExp(r,opt.split("u").join(""));
-};
-$hxClasses["EReg"] = EReg;
-EReg.__name__ = "EReg";
-EReg.prototype = {
-	r: null
-	,match: function(s) {
-		if(this.r.global) {
-			this.r.lastIndex = 0;
-		}
-		this.r.m = this.r.exec(s);
-		this.r.s = s;
-		return this.r.m != null;
-	}
-	,matched: function(n) {
-		if(this.r.m != null && n >= 0 && n < this.r.m.length) {
-			return this.r.m[n];
-		} else {
-			throw haxe_Exception.thrown("EReg::matched");
-		}
-	}
-	,matchedRight: function() {
-		if(this.r.m == null) {
-			throw haxe_Exception.thrown("No string matched");
-		}
-		var sz = this.r.m.index + this.r.m[0].length;
-		return HxOverrides.substr(this.r.s,sz,this.r.s.length - sz);
-	}
-	,matchedPos: function() {
-		if(this.r.m == null) {
-			throw haxe_Exception.thrown("No string matched");
-		}
-		return { pos : this.r.m.index, len : this.r.m[0].length};
-	}
-	,matchSub: function(s,pos,len) {
-		if(len == null) {
-			len = -1;
-		}
-		if(this.r.global) {
-			this.r.lastIndex = pos;
-			this.r.m = this.r.exec(len < 0 ? s : HxOverrides.substr(s,0,pos + len));
-			var b = this.r.m != null;
-			if(b) {
-				this.r.s = s;
-			}
-			return b;
-		} else {
-			var b = this.match(len < 0 ? HxOverrides.substr(s,pos,null) : HxOverrides.substr(s,pos,len));
-			if(b) {
-				this.r.s = s;
-				this.r.m.index += pos;
-			}
-			return b;
-		}
-	}
-	,split: function(s) {
-		var d = "#__delim__#";
-		return s.replace(this.r,d).split(d);
-	}
-	,map: function(s,f) {
-		var offset = 0;
-		var buf_b = "";
-		while(true) {
-			if(offset >= s.length) {
-				break;
-			} else if(!this.matchSub(s,offset)) {
-				buf_b += Std.string(HxOverrides.substr(s,offset,null));
-				break;
-			}
-			var p = this.matchedPos();
-			buf_b += Std.string(HxOverrides.substr(s,offset,p.pos - offset));
-			buf_b += Std.string(f(this));
-			if(p.len == 0) {
-				buf_b += Std.string(HxOverrides.substr(s,p.pos,1));
-				offset = p.pos + 1;
-			} else {
-				offset = p.pos + p.len;
-			}
-			if(!this.r.global) {
-				break;
-			}
-		}
-		if(!this.r.global && offset > 0 && offset < s.length) {
-			buf_b += Std.string(HxOverrides.substr(s,offset,null));
-		}
-		return buf_b;
-	}
-	,__class__: EReg
-};
 var flixel_util_IFlxDestroyable = function() { };
 $hxClasses["flixel.util.IFlxDestroyable"] = flixel_util_IFlxDestroyable;
 flixel_util_IFlxDestroyable.__name__ = "flixel.util.IFlxDestroyable";
@@ -5327,6 +5237,128 @@ flixel_FlxState.prototype = $extend(flixel_group_FlxTypedGroup.prototype,{
 	,__class__: flixel_FlxState
 	,__properties__: $extend(flixel_group_FlxTypedGroup.prototype.__properties__,{set_bgColor:"set_bgColor",get_bgColor:"get_bgColor"})
 });
+var Creds = function(MaxSize) {
+	this.goToGame = false;
+	flixel_FlxState.call(this,MaxSize);
+};
+$hxClasses["Creds"] = Creds;
+Creds.__name__ = "Creds";
+Creds.__super__ = flixel_FlxState;
+Creds.prototype = $extend(flixel_FlxState.prototype,{
+	creds: null
+	,goToGame: null
+	,create: function() {
+		this.add(this.creds = new flixel_FlxSprite(0,0).loadGraphic("assets/images/creds.png"));
+		flixel_FlxState.prototype.create.call(this);
+	}
+	,update: function(elapsed) {
+		var _this = flixel_FlxG.keys.justPressed;
+		if(_this.keyManager.checkStatus(65,_this.status) && !this.goToGame) {
+			this.creds.loadGraphic("assets/images/tut.png");
+			this.goToGame = true;
+		} else {
+			var _this = flixel_FlxG.keys.justPressed;
+			if(_this.keyManager.checkStatus(65,_this.status) && this.goToGame) {
+				var nextState = new ThinkPositive();
+				if(flixel_FlxG.game._state.switchTo(nextState)) {
+					flixel_FlxG.game._requestedState = nextState;
+				}
+			}
+		}
+		flixel_FlxState.prototype.update.call(this,elapsed);
+	}
+	,__class__: Creds
+});
+var EReg = function(r,opt) {
+	this.r = new RegExp(r,opt.split("u").join(""));
+};
+$hxClasses["EReg"] = EReg;
+EReg.__name__ = "EReg";
+EReg.prototype = {
+	r: null
+	,match: function(s) {
+		if(this.r.global) {
+			this.r.lastIndex = 0;
+		}
+		this.r.m = this.r.exec(s);
+		this.r.s = s;
+		return this.r.m != null;
+	}
+	,matched: function(n) {
+		if(this.r.m != null && n >= 0 && n < this.r.m.length) {
+			return this.r.m[n];
+		} else {
+			throw haxe_Exception.thrown("EReg::matched");
+		}
+	}
+	,matchedRight: function() {
+		if(this.r.m == null) {
+			throw haxe_Exception.thrown("No string matched");
+		}
+		var sz = this.r.m.index + this.r.m[0].length;
+		return HxOverrides.substr(this.r.s,sz,this.r.s.length - sz);
+	}
+	,matchedPos: function() {
+		if(this.r.m == null) {
+			throw haxe_Exception.thrown("No string matched");
+		}
+		return { pos : this.r.m.index, len : this.r.m[0].length};
+	}
+	,matchSub: function(s,pos,len) {
+		if(len == null) {
+			len = -1;
+		}
+		if(this.r.global) {
+			this.r.lastIndex = pos;
+			this.r.m = this.r.exec(len < 0 ? s : HxOverrides.substr(s,0,pos + len));
+			var b = this.r.m != null;
+			if(b) {
+				this.r.s = s;
+			}
+			return b;
+		} else {
+			var b = this.match(len < 0 ? HxOverrides.substr(s,pos,null) : HxOverrides.substr(s,pos,len));
+			if(b) {
+				this.r.s = s;
+				this.r.m.index += pos;
+			}
+			return b;
+		}
+	}
+	,split: function(s) {
+		var d = "#__delim__#";
+		return s.replace(this.r,d).split(d);
+	}
+	,map: function(s,f) {
+		var offset = 0;
+		var buf_b = "";
+		while(true) {
+			if(offset >= s.length) {
+				break;
+			} else if(!this.matchSub(s,offset)) {
+				buf_b += Std.string(HxOverrides.substr(s,offset,null));
+				break;
+			}
+			var p = this.matchedPos();
+			buf_b += Std.string(HxOverrides.substr(s,offset,p.pos - offset));
+			buf_b += Std.string(f(this));
+			if(p.len == 0) {
+				buf_b += Std.string(HxOverrides.substr(s,p.pos,1));
+				offset = p.pos + 1;
+			} else {
+				offset = p.pos + p.len;
+			}
+			if(!this.r.global) {
+				break;
+			}
+		}
+		if(!this.r.global && offset > 0 && offset < s.length) {
+			buf_b += Std.string(HxOverrides.substr(s,offset,null));
+		}
+		return buf_b;
+	}
+	,__class__: EReg
+};
 var GameOver = function(MaxSize) {
 	flixel_FlxState.call(this,MaxSize);
 };
@@ -5342,7 +5374,7 @@ GameOver.prototype = $extend(flixel_FlxState.prototype,{
 	}
 	,update: function(elapsed) {
 		var _this = flixel_FlxG.keys.pressed;
-		if(_this.keyManager.checkStatus(82,_this.status)) {
+		if(_this.keyManager.checkStatus(65,_this.status)) {
 			var nextState = new ThinkPositive();
 			if(flixel_FlxG.game._state.switchTo(nextState)) {
 				flixel_FlxG.game._requestedState = nextState;
@@ -5367,7 +5399,7 @@ GameWin.prototype = $extend(flixel_FlxState.prototype,{
 	}
 	,update: function(elapsed) {
 		var _this = flixel_FlxG.keys.pressed;
-		if(_this.keyManager.checkStatus(82,_this.status)) {
+		if(_this.keyManager.checkStatus(65,_this.status)) {
 			var nextState = new ThinkPositive();
 			if(flixel_FlxG.game._state.switchTo(nextState)) {
 				flixel_FlxG.game._requestedState = nextState;
@@ -5480,7 +5512,7 @@ ManifestResources.init = function(config) {
 	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$flixel_$fonts_$nokiafc22_$ttf);
 	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$flixel_$fonts_$monsterrat_$ttf);
 	var bundle;
-	var data = "{\"name\":null,\"assets\":\"aoy4:pathy32:assets%2Fimages%2Fbadthought.asey4:sizei661y4:typey6:BINARYy2:idR1y7:preloadtgoR0y32:assets%2Fimages%2Fbadthought.pngR2i277R3y5:IMAGER5R7R6tgoR0y27:assets%2Fimages%2Fcreds.pngR2i1579R3R8R5R9R6tgoR0y31:assets%2Fimages%2Ffacemeter.aseR2i1022R3R4R5R10R6tgoR0y31:assets%2Fimages%2Ffacemeter.pngR2i810R3R8R5R11R6tgoR0y27:assets%2Fimages%2Ffloor.aseR2i400R3R4R5R12R6tgoR0y27:assets%2Fimages%2Ffloor.pngR2i136R3R8R5R13R6tgoR0y30:assets%2Fimages%2Fgameover.pngR2i82998R3R8R5R14R6tgoR0y29:assets%2Fimages%2Fgamewin.pngR2i82998R3R8R5R15R6tgoR0y33:assets%2Fimages%2Fgoodthought.aseR2i584R3R4R5R16R6tgoR0y33:assets%2Fimages%2Fgoodthought.pngR2i210R3R8R5R17R6tgoR0y25:assets%2Fimages%2Fguy.aseR2i603R3R4R5R18R6tgoR0y25:assets%2Fimages%2Fguy.pngR2i289R3R8R5R19R6tgoR0y36:assets%2Fimages%2Fthought-bubble.aseR2i659R3R4R5R20R6tgoR0y36:assets%2Fimages%2Fthought-bubble.pngR2i270R3R8R5R21R6tgoR0y34:assets%2Fimages%2Fthoughtchain.aseR2i390R3R4R5R22R6tgoR0y34:assets%2Fimages%2Fthoughtchain.pngR2i122R3R8R5R23R6tgoR0y36:assets%2Fimages%2Fverybadthought.aseR2i662R3R4R5R24R6tgoR0y36:assets%2Fimages%2Fverybadthought.pngR2i280R3R8R5R25R6tgoR2i25537898R3y5:SOUNDR5y26:assets%2Fmusic%2Fmusic.wavy9:pathGroupaR27hR6tgoR0y36:assets%2Fsounds%2Fsounds-go-here.txtR2zR3y4:TEXTR5R29R6tgoR2i2114R3y5:MUSICR5y26:flixel%2Fsounds%2Fbeep.mp3R28aR32y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R31R5y28:flixel%2Fsounds%2Fflixel.mp3R28aR34y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3R26R5R33R28aR32R33hgoR2i33629R3R26R5R35R28aR34R35hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R36R37y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R8R5R42R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R8R5R43R6tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
+	var data = "{\"name\":null,\"assets\":\"aoy4:pathy32:assets%2Fimages%2Fbadthought.asey4:sizei661y4:typey6:BINARYy2:idR1y7:preloadtgoR0y32:assets%2Fimages%2Fbadthought.pngR2i277R3y5:IMAGER5R7R6tgoR0y27:assets%2Fimages%2Fcreds.pngR2i1579R3R8R5R9R6tgoR0y31:assets%2Fimages%2Ffacemeter.aseR2i1022R3R4R5R10R6tgoR0y31:assets%2Fimages%2Ffacemeter.pngR2i810R3R8R5R11R6tgoR0y27:assets%2Fimages%2Ffloor.aseR2i400R3R4R5R12R6tgoR0y27:assets%2Fimages%2Ffloor.pngR2i136R3R8R5R13R6tgoR0y30:assets%2Fimages%2Fgameover.pngR2i6286R3R8R5R14R6tgoR0y29:assets%2Fimages%2Fgamewin.pngR2i7818R3R8R5R15R6tgoR0y33:assets%2Fimages%2Fgoodthought.aseR2i584R3R4R5R16R6tgoR0y33:assets%2Fimages%2Fgoodthought.pngR2i210R3R8R5R17R6tgoR0y25:assets%2Fimages%2Fguy.aseR2i603R3R4R5R18R6tgoR0y25:assets%2Fimages%2Fguy.pngR2i289R3R8R5R19R6tgoR0y36:assets%2Fimages%2Fthought-bubble.aseR2i659R3R4R5R20R6tgoR0y36:assets%2Fimages%2Fthought-bubble.pngR2i270R3R8R5R21R6tgoR0y34:assets%2Fimages%2Fthoughtchain.aseR2i390R3R4R5R22R6tgoR0y34:assets%2Fimages%2Fthoughtchain.pngR2i122R3R8R5R23R6tgoR0y25:assets%2Fimages%2Ftut.pngR2i1110R3R8R5R24R6tgoR0y36:assets%2Fimages%2Fverybadthought.aseR2i662R3R4R5R25R6tgoR0y36:assets%2Fimages%2Fverybadthought.pngR2i280R3R8R5R26R6tgoR2i25537898R3y5:SOUNDR5y26:assets%2Fmusic%2Fmusic.wavy9:pathGroupaR28hR6tgoR0y36:assets%2Fsounds%2Fsounds-go-here.txtR2zR3y4:TEXTR5R30R6tgoR2i2114R3y5:MUSICR5y26:flixel%2Fsounds%2Fbeep.mp3R29aR33y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R32R5y28:flixel%2Fsounds%2Fflixel.mp3R29aR35y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3R27R5R34R29aR33R34hgoR2i33629R3R27R5R36R29aR35R36hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R37R38y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R8R5R43R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R8R5R44R6tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
 	var manifest = lime_utils_AssetManifest.parse(data,ManifestResources.rootPath);
 	var library = lime_utils_AssetLibrary.fromManifest(manifest);
 	lime_utils_Assets.registerLibrary("default",library);
@@ -6097,25 +6129,6 @@ StringTools.hex = function(n,digits) {
 	}
 	return s;
 };
-var Creds = function(MaxSize) {
-	flixel_FlxState.call(this,MaxSize);
-};
-$hxClasses["Creds"] = Creds;
-Creds.__name__ = "Creds";
-Creds.__super__ = flixel_FlxState;
-Creds.prototype = $extend(flixel_FlxState.prototype,{
-	create: function() {
-		this.add(new flixel_FlxSprite(0,0).loadGraphic("assets/images/creds.png"));
-		new flixel_util_FlxTimer().start(1.50,function(_) {
-			var nextState = new ThinkPositive();
-			if(flixel_FlxG.game._state.switchTo(nextState)) {
-				flixel_FlxG.game._requestedState = nextState;
-			}
-		});
-		flixel_FlxState.prototype.create.call(this);
-	}
-	,__class__: Creds
-});
 var ThinkPositive = function(MaxSize) {
 	flixel_FlxState.call(this,MaxSize);
 };
@@ -9564,51 +9577,27 @@ actors_Thought.prototype = $extend(flixel_FlxSprite.prototype,{
 	,SPEED: null
 	,update: function(elapsed) {
 		this.animation.play("think");
-		var tmp;
-		var _this = flixel_FlxG.keys.pressed;
-		if(_this.keyManager.checkStatus(37,_this.status)) {
-			var _this = flixel_FlxG.keys.pressed;
-			tmp = _this.keyManager.checkStatus(39,_this.status);
-		} else {
-			tmp = false;
-		}
-		if(tmp) {
+		var left = flixel_FlxG.keys.checkKeyArrayState([37,65],1);
+		var right = flixel_FlxG.keys.checkKeyArrayState([39,68],1);
+		var up = flixel_FlxG.keys.checkKeyArrayState([38,87],1);
+		var down = flixel_FlxG.keys.checkKeyArrayState([40,83],1);
+		if(left && right) {
 			this.velocity.set_x(0);
+		} else if(left) {
+			this.velocity.set_x(-this.SPEED);
+		} else if(right) {
+			this.velocity.set_x(this.SPEED);
 		} else {
-			var _this = flixel_FlxG.keys.pressed;
-			if(_this.keyManager.checkStatus(37,_this.status)) {
-				this.velocity.set_x(-this.SPEED);
-			} else {
-				var _this = flixel_FlxG.keys.pressed;
-				if(_this.keyManager.checkStatus(39,_this.status)) {
-					this.velocity.set_x(this.SPEED);
-				} else {
-					this.velocity.set_x(0);
-				}
-			}
+			this.velocity.set_x(0);
 		}
-		var tmp;
-		var _this = flixel_FlxG.keys.pressed;
-		if(_this.keyManager.checkStatus(38,_this.status)) {
-			var _this = flixel_FlxG.keys.pressed;
-			tmp = _this.keyManager.checkStatus(40,_this.status);
-		} else {
-			tmp = false;
-		}
-		if(tmp) {
+		if(up && down) {
 			this.velocity.set_y(0);
+		} else if(up) {
+			this.velocity.set_y(-this.SPEED);
+		} else if(down) {
+			this.velocity.set_y(this.SPEED);
 		} else {
-			var _this = flixel_FlxG.keys.pressed;
-			if(_this.keyManager.checkStatus(38,_this.status)) {
-				this.velocity.set_y(-this.SPEED);
-			} else {
-				var _this = flixel_FlxG.keys.pressed;
-				if(_this.keyManager.checkStatus(40,_this.status)) {
-					this.velocity.set_y(this.SPEED);
-				} else {
-					this.velocity.set_y(0);
-				}
-			}
+			this.velocity.set_y(0);
 		}
 		flixel_FlxSprite.prototype.update.call(this,elapsed);
 	}
@@ -68966,7 +68955,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 95719;
+	this.version = 98285;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";
