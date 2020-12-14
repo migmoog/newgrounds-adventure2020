@@ -4,7 +4,6 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
-import flixel.math.FlxRandom;
 import flixel.util.FlxTimer;
 
 enum FlyingThoughtType {
@@ -19,8 +18,6 @@ class FlyingThoughts extends FlxGroup {
 	var spawnTime:Float = 3;
 	var spawnAmount:Int = 2;
 
-	static public final rand:FlxRandom = new FlxRandom();
-
 	public function new(scene:FlxState) {
 		super();
 		scene.add(this);
@@ -34,8 +31,8 @@ class FlyingThoughts extends FlxGroup {
 
 	function spawnThoughts() {
 		for (i in 0...spawnAmount) {
-			var statePickInt:Int = rand.int(0, 2);
-			add(new FlyingThought(rand.bool() ? -5 : FlxG.width + 5, if (statePickInt == 0) GOOD else if (statePickInt == 2) BAD else VERY_BAD));
+			var statePickInt:Int = FlxG.random.int(0, 2);
+			add(new FlyingThought(FlxG.random.bool() ? -5 : FlxG.width + 5, if (statePickInt == 0) GOOD else if (statePickInt == 2) BAD else VERY_BAD));
 		}
 
 		if (canSpawn)
@@ -72,7 +69,7 @@ class FlyingThought extends FlxSprite {
 	var destination:Float;
 
 	public function new(x:Float, type:FlyingThoughtType) {
-		super(x, FlyingThoughts.rand.float(0, 90));
+		super(x, FlxG.random.float(0, 90));
 		loadGraphic(if (type == GOOD) 'assets/images/goodthought.png' else if (type == BAD) 'assets/images/badthought.png' else
 			'assets/images/verybadthought.png',
 			true, 8, 8);
@@ -82,10 +79,10 @@ class FlyingThought extends FlxSprite {
 		this.type = type;
 
 		if (x > FlxG.width) {
-			SPEED = type == GOOD ? FlyingThoughts.rand.float(-45, -75) : FlyingThoughts.rand.float(-65, -85);
+			SPEED = type == GOOD ? FlxG.random.float(-45, -75) : FlxG.random.float(-65, -85);
 			destination = -5;
 		} else if (x < 0) {
-			SPEED = type == GOOD ? FlyingThoughts.rand.float(45, 75) : FlyingThoughts.rand.float(65, 85);
+			SPEED = type == GOOD ? FlxG.random.float(45, 75) : FlxG.random.float(65, 85);
 			destination = FlxG.width + 5;
 
 			flipX = true;

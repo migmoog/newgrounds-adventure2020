@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "27";
+	app.meta.h["build"] = "28";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "ADVENT2020";
 	app.meta.h["name"] = "ADVENT2020";
@@ -9170,288 +9170,6 @@ var actors_FlyingThoughtType = $hxEnums["actors.FlyingThoughtType"] = { __ename_
 	,BAD: {_hx_index:1,__enum__:"actors.FlyingThoughtType",toString:$estr}
 	,VERY_BAD: {_hx_index:2,__enum__:"actors.FlyingThoughtType",toString:$estr}
 };
-var flixel_math_FlxRandom = function(InitialSeed) {
-	this.internalSeed = 1;
-	this._floatNormalRho = 0;
-	this._twoPI = Math.PI * 2;
-	this._floatNormalRand2 = 0;
-	this._floatNormalRand1 = 0;
-	this._hasFloatNormalSpare = false;
-	this.initialSeed = 1;
-	if(InitialSeed != null) {
-		var lowerBound = InitialSeed < 1 ? 1 : InitialSeed;
-		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
-		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
-		this.initialSeed = (this.internalSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0) | 0;
-	} else {
-		var Value = Math.random() * 2147483647 | 0;
-		var lowerBound = Value < 1 ? 1 : Value;
-		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
-		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
-		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
-		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
-		this.initialSeed = (this.internalSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0) | 0;
-	}
-};
-$hxClasses["flixel.math.FlxRandom"] = flixel_math_FlxRandom;
-flixel_math_FlxRandom.__name__ = "flixel.math.FlxRandom";
-flixel_math_FlxRandom.rangeBound = function(Value) {
-	var lowerBound = Value < 1 ? 1 : Value;
-	return (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
-};
-flixel_math_FlxRandom.prototype = {
-	getObject_flixel_group_FlxTypedGroup_T: function(Objects,WeightsArray,StartIndex,EndIndex) {
-		if(StartIndex == null) {
-			StartIndex = 0;
-		}
-		var selected = null;
-		if(Objects.length != 0) {
-			if(WeightsArray == null) {
-				var _g = [];
-				var _g1 = 0;
-				var _g2 = Objects.length;
-				while(_g1 < _g2) {
-					var i = _g1++;
-					_g.push(1);
-				}
-				WeightsArray = _g;
-			}
-			if(EndIndex == null) {
-				EndIndex = Objects.length - 1;
-			}
-			var Max = Objects.length - 1;
-			var lowerBound = StartIndex < 0 ? 0 : StartIndex;
-			StartIndex = (Max != null && lowerBound > Max ? Max : lowerBound) | 0;
-			var Max = Objects.length - 1;
-			var lowerBound = EndIndex < 0 ? 0 : EndIndex;
-			EndIndex = (Max != null && lowerBound > Max ? Max : lowerBound) | 0;
-			if(EndIndex < StartIndex) {
-				StartIndex += EndIndex;
-				EndIndex = StartIndex - EndIndex;
-				StartIndex -= EndIndex;
-			}
-			if(EndIndex > WeightsArray.length - 1) {
-				EndIndex = WeightsArray.length - 1;
-			}
-			var _g = [];
-			var _g1 = StartIndex;
-			var _g2 = EndIndex + 1;
-			while(_g1 < _g2) {
-				var i = _g1++;
-				_g.push(WeightsArray[i]);
-			}
-			flixel_math_FlxRandom._arrayFloatHelper = _g;
-			selected = Objects[StartIndex + this.weightedPick(flixel_math_FlxRandom._arrayFloatHelper)];
-		}
-		return selected;
-	}
-	,initialSeed: null
-	,resetInitialSeed: function() {
-		var Value = Math.random() * 2147483647 | 0;
-		var lowerBound = Value < 1 ? 1 : Value;
-		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
-		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
-		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
-		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
-		return this.initialSeed = (this.internalSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0) | 0;
-	}
-	,int: function(Min,Max,Excludes) {
-		if(Max == null) {
-			Max = 2147483647;
-		}
-		if(Min == null) {
-			Min = 0;
-		}
-		if(Min == 0 && Max == 2147483647 && Excludes == null) {
-			return (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) | 0;
-		} else if(Min == Max) {
-			return Min;
-		} else {
-			if(Min > Max) {
-				Min += Max;
-				Max = Min - Max;
-				Min -= Max;
-			}
-			if(Excludes == null) {
-				return Math.floor(Min + (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647 * (Max - Min + 1));
-			} else {
-				var result = 0;
-				while(true) {
-					result = Math.floor(Min + (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647 * (Max - Min + 1));
-					if(!(Excludes.indexOf(result) >= 0)) {
-						break;
-					}
-				}
-				return result;
-			}
-		}
-	}
-	,float: function(Min,Max,Excludes) {
-		if(Max == null) {
-			Max = 1;
-		}
-		if(Min == null) {
-			Min = 0;
-		}
-		var result = 0;
-		if(Min == 0 && Max == 1 && Excludes == null) {
-			return (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647;
-		} else if(Min == Max) {
-			result = Min;
-		} else {
-			if(Min > Max) {
-				Min += Max;
-				Max = Min - Max;
-				Min -= Max;
-			}
-			if(Excludes == null) {
-				result = Min + (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647 * (Max - Min);
-			} else {
-				while(true) {
-					result = Min + (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647 * (Max - Min);
-					if(!(Excludes.indexOf(result) >= 0)) {
-						break;
-					}
-				}
-			}
-		}
-		return result;
-	}
-	,_hasFloatNormalSpare: null
-	,_floatNormalRand1: null
-	,_floatNormalRand2: null
-	,_twoPI: null
-	,_floatNormalRho: null
-	,floatNormal: function(Mean,StdDev) {
-		if(StdDev == null) {
-			StdDev = 1;
-		}
-		if(Mean == null) {
-			Mean = 0;
-		}
-		if(this._hasFloatNormalSpare) {
-			this._hasFloatNormalSpare = false;
-			var scale = StdDev * this._floatNormalRho;
-			return Mean + scale * this._floatNormalRand2;
-		}
-		this._hasFloatNormalSpare = true;
-		var theta = this._twoPI * ((this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647);
-		this._floatNormalRho = Math.sqrt(-2 * Math.log(1 - (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647));
-		var scale = StdDev * this._floatNormalRho;
-		this._floatNormalRand1 = Math.cos(theta);
-		this._floatNormalRand2 = Math.sin(theta);
-		return Mean + scale * this._floatNormalRand1;
-	}
-	,bool: function(Chance) {
-		if(Chance == null) {
-			Chance = 50;
-		}
-		return this.float(0,100) < Chance;
-	}
-	,sign: function(Chance) {
-		if(Chance == null) {
-			Chance = 50;
-		}
-		var Chance1 = Chance;
-		if(Chance1 == null) {
-			Chance1 = 50;
-		}
-		if(this.float(0,100) < Chance1) {
-			return 1;
-		} else {
-			return -1;
-		}
-	}
-	,weightedPick: function(WeightsArray) {
-		var totalWeight = 0;
-		var pick = 0;
-		var _g = 0;
-		while(_g < WeightsArray.length) {
-			var i = WeightsArray[_g];
-			++_g;
-			totalWeight += i;
-		}
-		totalWeight = this.float(0,totalWeight);
-		var _g = 0;
-		var _g1 = WeightsArray.length;
-		while(_g < _g1) {
-			var i = _g++;
-			if(totalWeight < WeightsArray[i]) {
-				pick = i;
-				break;
-			}
-			totalWeight -= WeightsArray[i];
-		}
-		return pick;
-	}
-	,color: function(Min,Max,Alpha,GreyScale) {
-		if(GreyScale == null) {
-			GreyScale = false;
-		}
-		var red;
-		var green;
-		var blue;
-		var alpha;
-		if(Min == null && Max == null) {
-			red = this.int(0,255);
-			green = this.int(0,255);
-			blue = this.int(0,255);
-			alpha = Alpha == null ? this.int(0,255) : Alpha;
-		} else if(Max == null) {
-			red = this.int(Min >> 16 & 255,255);
-			green = GreyScale ? red : this.int(Min >> 8 & 255,255);
-			blue = GreyScale ? red : this.int(Min & 255,255);
-			alpha = Alpha == null ? this.int(Min >> 24 & 255,255) : Alpha;
-		} else if(Min == null) {
-			red = this.int(0,Max >> 16 & 255);
-			green = GreyScale ? red : this.int(0,Max >> 8 & 255);
-			blue = GreyScale ? red : this.int(0,Max & 255);
-			alpha = Alpha == null ? this.int(0,Max >> 24 & 255) : Alpha;
-		} else {
-			red = this.int(Min >> 16 & 255,Max >> 16 & 255);
-			green = GreyScale ? red : this.int(Min >> 8 & 255,Max >> 8 & 255);
-			blue = GreyScale ? red : this.int(Min & 255,Max & 255);
-			alpha = Alpha == null ? this.int(Min >> 24 & 255,Max >> 24 & 255) : Alpha;
-		}
-		var Alpha = alpha;
-		if(Alpha == null) {
-			Alpha = 255;
-		}
-		var color = flixel_util_FlxColor._new();
-		var Alpha1 = Alpha;
-		if(Alpha1 == null) {
-			Alpha1 = 255;
-		}
-		color &= -16711681;
-		color |= (red > 255 ? 255 : red < 0 ? 0 : red) << 16;
-		color &= -65281;
-		color |= (green > 255 ? 255 : green < 0 ? 0 : green) << 8;
-		color &= -256;
-		color |= blue > 255 ? 255 : blue < 0 ? 0 : blue;
-		color &= 16777215;
-		color |= (Alpha1 > 255 ? 255 : Alpha1 < 0 ? 0 : Alpha1) << 24;
-		return color;
-	}
-	,generate: function() {
-		return this.internalSeed = this.internalSeed * 48271.0 % 2147483647;
-	}
-	,internalSeed: null
-	,set_initialSeed: function(NewSeed) {
-		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
-		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
-		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
-		return this.initialSeed = (this.internalSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0) | 0;
-	}
-	,get_currentSeed: function() {
-		return this.internalSeed | 0;
-	}
-	,set_currentSeed: function(NewSeed) {
-		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
-		return (this.internalSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0) | 0;
-	}
-	,__class__: flixel_math_FlxRandom
-	,__properties__: {set_currentSeed:"set_currentSeed",get_currentSeed:"get_currentSeed",set_initialSeed:"set_initialSeed"}
-};
 var actors_FlyingThoughts = function(scene) {
 	this.spawnAmount = 2;
 	this.spawnTime = 3;
@@ -9481,8 +9199,8 @@ actors_FlyingThoughts.prototype = $extend(flixel_group_FlxTypedGroup.prototype,{
 		var _g1 = this.spawnAmount;
 		while(_g < _g1) {
 			var i = _g++;
-			var statePickInt = actors_FlyingThoughts.rand.int(0,2);
-			this.add(new actors_FlyingThought(actors_FlyingThoughts.rand.float(0,100) < 50 ? -5 : flixel_FlxG.width + 5,statePickInt == 0 ? actors_FlyingThoughtType.GOOD : statePickInt == 2 ? actors_FlyingThoughtType.BAD : actors_FlyingThoughtType.VERY_BAD));
+			var statePickInt = flixel_FlxG.random.int(0,2);
+			this.add(new actors_FlyingThought(flixel_FlxG.random.float(0,100) < 50 ? -5 : flixel_FlxG.width + 5,statePickInt == 0 ? actors_FlyingThoughtType.GOOD : statePickInt == 2 ? actors_FlyingThoughtType.BAD : actors_FlyingThoughtType.VERY_BAD));
 		}
 		if(this.canSpawn) {
 			new flixel_util_FlxTimer().start(this.spawnTime,function(_) {
@@ -9511,15 +9229,15 @@ actors_FlyingThoughts.prototype = $extend(flixel_group_FlxTypedGroup.prototype,{
 	,__class__: actors_FlyingThoughts
 });
 var actors_FlyingThought = function(x,type) {
-	flixel_FlxSprite.call(this,x,actors_FlyingThoughts.rand.float(0,90));
+	flixel_FlxSprite.call(this,x,flixel_FlxG.random.float(0,90));
 	this.loadGraphic(type == actors_FlyingThoughtType.GOOD ? "assets/images/goodthought.png" : type == actors_FlyingThoughtType.BAD ? "assets/images/badthought.png" : "assets/images/verybadthought.png",true,8,8);
 	this.animation.add("fly",[0,1,2,1],4);
 	this.type = type;
 	if(x > flixel_FlxG.width) {
-		this.SPEED = type == actors_FlyingThoughtType.GOOD ? actors_FlyingThoughts.rand.float(-45,-75) : actors_FlyingThoughts.rand.float(-65,-85);
+		this.SPEED = type == actors_FlyingThoughtType.GOOD ? flixel_FlxG.random.float(-45,-75) : flixel_FlxG.random.float(-65,-85);
 		this.destination = -5;
 	} else if(x < 0) {
-		this.SPEED = type == actors_FlyingThoughtType.GOOD ? actors_FlyingThoughts.rand.float(45,75) : actors_FlyingThoughts.rand.float(65,85);
+		this.SPEED = type == actors_FlyingThoughtType.GOOD ? flixel_FlxG.random.float(45,75) : flixel_FlxG.random.float(65,85);
 		this.destination = flixel_FlxG.width + 5;
 		this.set_flipX(true);
 	}
@@ -13557,6 +13275,288 @@ js_Boot.__isNativeObj = function(o) {
 };
 js_Boot.__resolveNativeClass = function(name) {
 	return $global[name];
+};
+var flixel_math_FlxRandom = function(InitialSeed) {
+	this.internalSeed = 1;
+	this._floatNormalRho = 0;
+	this._twoPI = Math.PI * 2;
+	this._floatNormalRand2 = 0;
+	this._floatNormalRand1 = 0;
+	this._hasFloatNormalSpare = false;
+	this.initialSeed = 1;
+	if(InitialSeed != null) {
+		var lowerBound = InitialSeed < 1 ? 1 : InitialSeed;
+		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
+		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
+		this.initialSeed = (this.internalSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0) | 0;
+	} else {
+		var Value = Math.random() * 2147483647 | 0;
+		var lowerBound = Value < 1 ? 1 : Value;
+		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
+		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
+		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
+		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
+		this.initialSeed = (this.internalSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0) | 0;
+	}
+};
+$hxClasses["flixel.math.FlxRandom"] = flixel_math_FlxRandom;
+flixel_math_FlxRandom.__name__ = "flixel.math.FlxRandom";
+flixel_math_FlxRandom.rangeBound = function(Value) {
+	var lowerBound = Value < 1 ? 1 : Value;
+	return (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
+};
+flixel_math_FlxRandom.prototype = {
+	getObject_flixel_group_FlxTypedGroup_T: function(Objects,WeightsArray,StartIndex,EndIndex) {
+		if(StartIndex == null) {
+			StartIndex = 0;
+		}
+		var selected = null;
+		if(Objects.length != 0) {
+			if(WeightsArray == null) {
+				var _g = [];
+				var _g1 = 0;
+				var _g2 = Objects.length;
+				while(_g1 < _g2) {
+					var i = _g1++;
+					_g.push(1);
+				}
+				WeightsArray = _g;
+			}
+			if(EndIndex == null) {
+				EndIndex = Objects.length - 1;
+			}
+			var Max = Objects.length - 1;
+			var lowerBound = StartIndex < 0 ? 0 : StartIndex;
+			StartIndex = (Max != null && lowerBound > Max ? Max : lowerBound) | 0;
+			var Max = Objects.length - 1;
+			var lowerBound = EndIndex < 0 ? 0 : EndIndex;
+			EndIndex = (Max != null && lowerBound > Max ? Max : lowerBound) | 0;
+			if(EndIndex < StartIndex) {
+				StartIndex += EndIndex;
+				EndIndex = StartIndex - EndIndex;
+				StartIndex -= EndIndex;
+			}
+			if(EndIndex > WeightsArray.length - 1) {
+				EndIndex = WeightsArray.length - 1;
+			}
+			var _g = [];
+			var _g1 = StartIndex;
+			var _g2 = EndIndex + 1;
+			while(_g1 < _g2) {
+				var i = _g1++;
+				_g.push(WeightsArray[i]);
+			}
+			flixel_math_FlxRandom._arrayFloatHelper = _g;
+			selected = Objects[StartIndex + this.weightedPick(flixel_math_FlxRandom._arrayFloatHelper)];
+		}
+		return selected;
+	}
+	,initialSeed: null
+	,resetInitialSeed: function() {
+		var Value = Math.random() * 2147483647 | 0;
+		var lowerBound = Value < 1 ? 1 : Value;
+		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
+		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
+		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
+		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
+		return this.initialSeed = (this.internalSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0) | 0;
+	}
+	,int: function(Min,Max,Excludes) {
+		if(Max == null) {
+			Max = 2147483647;
+		}
+		if(Min == null) {
+			Min = 0;
+		}
+		if(Min == 0 && Max == 2147483647 && Excludes == null) {
+			return (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) | 0;
+		} else if(Min == Max) {
+			return Min;
+		} else {
+			if(Min > Max) {
+				Min += Max;
+				Max = Min - Max;
+				Min -= Max;
+			}
+			if(Excludes == null) {
+				return Math.floor(Min + (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647 * (Max - Min + 1));
+			} else {
+				var result = 0;
+				while(true) {
+					result = Math.floor(Min + (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647 * (Max - Min + 1));
+					if(!(Excludes.indexOf(result) >= 0)) {
+						break;
+					}
+				}
+				return result;
+			}
+		}
+	}
+	,float: function(Min,Max,Excludes) {
+		if(Max == null) {
+			Max = 1;
+		}
+		if(Min == null) {
+			Min = 0;
+		}
+		var result = 0;
+		if(Min == 0 && Max == 1 && Excludes == null) {
+			return (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647;
+		} else if(Min == Max) {
+			result = Min;
+		} else {
+			if(Min > Max) {
+				Min += Max;
+				Max = Min - Max;
+				Min -= Max;
+			}
+			if(Excludes == null) {
+				result = Min + (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647 * (Max - Min);
+			} else {
+				while(true) {
+					result = Min + (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647 * (Max - Min);
+					if(!(Excludes.indexOf(result) >= 0)) {
+						break;
+					}
+				}
+			}
+		}
+		return result;
+	}
+	,_hasFloatNormalSpare: null
+	,_floatNormalRand1: null
+	,_floatNormalRand2: null
+	,_twoPI: null
+	,_floatNormalRho: null
+	,floatNormal: function(Mean,StdDev) {
+		if(StdDev == null) {
+			StdDev = 1;
+		}
+		if(Mean == null) {
+			Mean = 0;
+		}
+		if(this._hasFloatNormalSpare) {
+			this._hasFloatNormalSpare = false;
+			var scale = StdDev * this._floatNormalRho;
+			return Mean + scale * this._floatNormalRand2;
+		}
+		this._hasFloatNormalSpare = true;
+		var theta = this._twoPI * ((this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647);
+		this._floatNormalRho = Math.sqrt(-2 * Math.log(1 - (this.internalSeed = this.internalSeed * 48271.0 % 2147483647) / 2147483647));
+		var scale = StdDev * this._floatNormalRho;
+		this._floatNormalRand1 = Math.cos(theta);
+		this._floatNormalRand2 = Math.sin(theta);
+		return Mean + scale * this._floatNormalRand1;
+	}
+	,bool: function(Chance) {
+		if(Chance == null) {
+			Chance = 50;
+		}
+		return this.float(0,100) < Chance;
+	}
+	,sign: function(Chance) {
+		if(Chance == null) {
+			Chance = 50;
+		}
+		var Chance1 = Chance;
+		if(Chance1 == null) {
+			Chance1 = 50;
+		}
+		if(this.float(0,100) < Chance1) {
+			return 1;
+		} else {
+			return -1;
+		}
+	}
+	,weightedPick: function(WeightsArray) {
+		var totalWeight = 0;
+		var pick = 0;
+		var _g = 0;
+		while(_g < WeightsArray.length) {
+			var i = WeightsArray[_g];
+			++_g;
+			totalWeight += i;
+		}
+		totalWeight = this.float(0,totalWeight);
+		var _g = 0;
+		var _g1 = WeightsArray.length;
+		while(_g < _g1) {
+			var i = _g++;
+			if(totalWeight < WeightsArray[i]) {
+				pick = i;
+				break;
+			}
+			totalWeight -= WeightsArray[i];
+		}
+		return pick;
+	}
+	,color: function(Min,Max,Alpha,GreyScale) {
+		if(GreyScale == null) {
+			GreyScale = false;
+		}
+		var red;
+		var green;
+		var blue;
+		var alpha;
+		if(Min == null && Max == null) {
+			red = this.int(0,255);
+			green = this.int(0,255);
+			blue = this.int(0,255);
+			alpha = Alpha == null ? this.int(0,255) : Alpha;
+		} else if(Max == null) {
+			red = this.int(Min >> 16 & 255,255);
+			green = GreyScale ? red : this.int(Min >> 8 & 255,255);
+			blue = GreyScale ? red : this.int(Min & 255,255);
+			alpha = Alpha == null ? this.int(Min >> 24 & 255,255) : Alpha;
+		} else if(Min == null) {
+			red = this.int(0,Max >> 16 & 255);
+			green = GreyScale ? red : this.int(0,Max >> 8 & 255);
+			blue = GreyScale ? red : this.int(0,Max & 255);
+			alpha = Alpha == null ? this.int(0,Max >> 24 & 255) : Alpha;
+		} else {
+			red = this.int(Min >> 16 & 255,Max >> 16 & 255);
+			green = GreyScale ? red : this.int(Min >> 8 & 255,Max >> 8 & 255);
+			blue = GreyScale ? red : this.int(Min & 255,Max & 255);
+			alpha = Alpha == null ? this.int(Min >> 24 & 255,Max >> 24 & 255) : Alpha;
+		}
+		var Alpha = alpha;
+		if(Alpha == null) {
+			Alpha = 255;
+		}
+		var color = flixel_util_FlxColor._new();
+		var Alpha1 = Alpha;
+		if(Alpha1 == null) {
+			Alpha1 = 255;
+		}
+		color &= -16711681;
+		color |= (red > 255 ? 255 : red < 0 ? 0 : red) << 16;
+		color &= -65281;
+		color |= (green > 255 ? 255 : green < 0 ? 0 : green) << 8;
+		color &= -256;
+		color |= blue > 255 ? 255 : blue < 0 ? 0 : blue;
+		color &= 16777215;
+		color |= (Alpha1 > 255 ? 255 : Alpha1 < 0 ? 0 : Alpha1) << 24;
+		return color;
+	}
+	,generate: function() {
+		return this.internalSeed = this.internalSeed * 48271.0 % 2147483647;
+	}
+	,internalSeed: null
+	,set_initialSeed: function(NewSeed) {
+		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
+		var NewSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0;
+		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
+		return this.initialSeed = (this.internalSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0) | 0;
+	}
+	,get_currentSeed: function() {
+		return this.internalSeed | 0;
+	}
+	,set_currentSeed: function(NewSeed) {
+		var lowerBound = NewSeed < 1 ? 1 : NewSeed;
+		return (this.internalSeed = (lowerBound > 2147483646 ? 2147483646 : lowerBound) | 0) | 0;
+	}
+	,__class__: flixel_math_FlxRandom
+	,__properties__: {set_currentSeed:"set_currentSeed",get_currentSeed:"get_currentSeed",set_initialSeed:"set_initialSeed"}
 };
 var flixel_util_FlxSave = function() {
 	this._closeRequested = false;
@@ -68955,7 +68955,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 98285;
+	this.version = 472789;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";
@@ -113385,10 +113385,6 @@ flixel_FlxObject._secondSeparateFlxRect = (function($this) {
 	$r = rect;
 	return $r;
 }(this));
-flixel_math_FlxRandom._arrayFloatHelper = null;
-flixel_math_FlxRandom.MULTIPLIER = 48271.0;
-flixel_math_FlxRandom.MODULUS = 2147483647;
-actors_FlyingThoughts.rand = new flixel_math_FlxRandom();
 openfl__$Vector_FloatVector.__meta__ = { obj : { SuppressWarnings : ["checkstyle:FieldDocComment"]}, fields : { toJSON : { SuppressWarnings : ["checkstyle:Dynamic"]}, _ : { SuppressWarnings : ["checkstyle:Dynamic"]}}};
 flixel_math_FlxPoint._pool = new flixel_util_FlxPool_$flixel_$math_$FlxPoint(flixel_math_FlxPoint);
 lime_math_Matrix3.__identity = new lime_math_Matrix3();
@@ -113443,6 +113439,9 @@ flixel_FlxCamera.renderRect = (function($this) {
 	return $r;
 }(this));
 flixel_system_FlxVersion.sha = "";
+flixel_math_FlxRandom._arrayFloatHelper = null;
+flixel_math_FlxRandom.MULTIPLIER = 48271.0;
+flixel_math_FlxRandom.MODULUS = 2147483647;
 flixel_FlxG.autoPause = true;
 flixel_FlxG.fixedTimestep = true;
 flixel_FlxG.timeScale = 1;
