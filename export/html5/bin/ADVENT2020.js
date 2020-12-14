@@ -893,7 +893,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "28";
+	app.meta.h["build"] = "29";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "ADVENT2020";
 	app.meta.h["name"] = "ADVENT2020";
@@ -9230,7 +9230,7 @@ actors_FlyingThoughts.prototype = $extend(flixel_group_FlxTypedGroup.prototype,{
 });
 var actors_FlyingThought = function(x,type) {
 	flixel_FlxSprite.call(this,x,flixel_FlxG.random.float(0,90));
-	this.loadGraphic(type == actors_FlyingThoughtType.GOOD ? "assets/images/goodthought.png" : type == actors_FlyingThoughtType.BAD ? "assets/images/badthought.png" : "assets/images/verybadthought.png",true,8,8);
+	this.loadGraphic(this.pickSprite(type),true,8,8);
 	this.animation.add("fly",[0,1,2,1],4);
 	this.type = type;
 	if(x > flixel_FlxG.width) {
@@ -9257,6 +9257,16 @@ actors_FlyingThought.prototype = $extend(flixel_FlxSprite.prototype,{
 			this.destroy();
 		}
 		flixel_FlxSprite.prototype.update.call(this,elapsed);
+	}
+	,pickSprite: function(type) {
+		switch(type._hx_index) {
+		case 0:
+			return "assets/images/goodthought.png";
+		case 1:
+			return "assets/images/badthought.png";
+		case 2:
+			return "assets/images/verybadthought.png";
+		}
 	}
 	,__class__: actors_FlyingThought
 });

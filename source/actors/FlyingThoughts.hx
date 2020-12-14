@@ -14,6 +14,7 @@ enum FlyingThoughtType {
 
 class FlyingThoughts extends FlxGroup {
 	public var canSpawn:Bool = false;
+
 	var timeSinceCreated:Float = 0;
 	var spawnTime:Float = 3;
 	var spawnAmount:Int = 2;
@@ -70,9 +71,7 @@ class FlyingThought extends FlxSprite {
 
 	public function new(x:Float, type:FlyingThoughtType) {
 		super(x, FlxG.random.float(0, 90));
-		loadGraphic(if (type == GOOD) 'assets/images/goodthought.png' else if (type == BAD) 'assets/images/badthought.png' else
-			'assets/images/verybadthought.png',
-			true, 8, 8);
+		loadGraphic(pickSprite(type), true, 8, 8);
 
 		animation.add('fly', [0, 1, 2, 1], 4);
 
@@ -99,5 +98,16 @@ class FlyingThought extends FlxSprite {
 		}
 
 		super.update(elapsed);
+	}
+
+	function pickSprite(type:FlyingThoughtType) {
+		switch (type) {
+			case GOOD:
+				return 'assets/images/goodthought.png';
+			case BAD:
+				return 'assets/images/badthought.png';
+			case VERY_BAD:
+				return 'assets/images/verybadthought.png';
+		}
 	}
 }
