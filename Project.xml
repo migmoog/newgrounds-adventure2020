@@ -30,7 +30,7 @@
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
 	<classpath name="standAloneSource" />
-	<assets path="assets" />
+	<assets path="assets" exclude="*.wav|*.ase" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
