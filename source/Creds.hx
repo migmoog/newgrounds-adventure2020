@@ -4,6 +4,13 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 
+import ui.Controls;
+#if ADVENT
+import utils.OverlayGlobal as Global;
+#else
+import utils.Global;
+#end
+
 class Creds extends FlxState {
     var creds:FlxSprite;
     var goToGame:Bool = false;
@@ -15,11 +22,11 @@ class Creds extends FlxState {
     }
     
     override public function update(elapsed:Float) {
-        if (FlxG.keys.justPressed.A && !goToGame) {
+        if (Controls.justPressed.A && !goToGame) {
             creds.loadGraphic('assets/images/tut.png');
             goToGame = true;
-        } else if (FlxG.keys.justPressed.A && goToGame) {
-            FlxG.switchState(new ThinkPositive());
+        } else if (Controls.justPressed.A && goToGame) {
+            Global.switchState(new ThinkPositive());
         }
         
         super.update(elapsed);

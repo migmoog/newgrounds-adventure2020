@@ -12,6 +12,13 @@ import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import flixel.util.FlxSpriteUtil;
 
+import ui.Controls;
+#if ADVENT
+import utils.OverlayGlobal as Global;
+#else
+import utils.Global;
+#end
+
 // this is main state of the game
 class ThinkPositive extends FlxState {
 	var floor:FlxSprite;
@@ -25,7 +32,7 @@ class ThinkPositive extends FlxState {
 	var happinessDebugText:FlxText;
 
 	override public function create() {
-		FlxG.cameras.bgColor = 0xff1f2f49;
+		Global.camera.bgColor = 0xff1f2f49;
 
 		if (FlxG.sound.music == null)
 			FlxG.sound.playMusic('assets/music/music.wav', 1, true);
@@ -33,7 +40,7 @@ class ThinkPositive extends FlxState {
 		floor = new FlxSprite(0, 99).loadGraphic('assets/images/floor.png', false);
 		add(floor);
 
-		guy = new Guy(this, FlxG.width / 2, 81);
+		guy = new Guy(this, Global.width / 2, 81);
 
 		thoughtCircs = new FlxTypedGroup<FlxSprite>(3);
 		add(thoughtCircs);
@@ -65,7 +72,7 @@ class ThinkPositive extends FlxState {
 				thought.happiness -= 4;
 		});
 
-		FlxSpriteUtil.bound(thought, 0, FlxG.width, 0, FlxG.height);
+		FlxSpriteUtil.bound(thought, 0, Global.width, 0, Global.height);
 
 		placeOnLine(thoughtCircs.members, guy.x + (guy.width / 2), guy.y, thought.x + (thought.width / 2), thought.y + (thought.height / 2));
 
@@ -81,9 +88,9 @@ class ThinkPositive extends FlxState {
 		faceMeter.happiness = thought.happiness;
 
 		if (faceMeter.happiness <= faceMeter.minHappy)
-			FlxG.switchState(new GameOver());
+			Global.switchState(new GameOver());
 		else if (faceMeter.happiness >= faceMeter.maxHappy)
-			FlxG.switchState(new GameWin());
+			Global.switchState(new GameWin());
 
 		super.update(elapsed);
 	}
