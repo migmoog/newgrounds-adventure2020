@@ -4,7 +4,12 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
-import flixel.util.FlxTimer;
+
+#if ADVENT
+import utils.OverlayGlobal as Global;
+#else
+import utils.Global;
+#end
 
 enum FlyingThoughtType {
 	GOOD;
@@ -25,7 +30,7 @@ class FlyingThoughts extends FlxGroup {
 
 		canSpawn = true;
 		if (canSpawn)
-			new FlxTimer().start(spawnTime, (_) -> {
+			Global.createTimer().start(spawnTime, (_) -> {
 				spawnThoughts();
 			});
 	}
@@ -33,11 +38,11 @@ class FlyingThoughts extends FlxGroup {
 	function spawnThoughts() {
 		for (i in 0...spawnAmount) {
 			var statePickInt:Int = FlxG.random.int(0, 2);
-			add(new FlyingThought(FlxG.random.bool() ? -5 : FlxG.width + 5, if (statePickInt == 0) GOOD else if (statePickInt == 2) BAD else VERY_BAD));
+			add(new FlyingThought(FlxG.random.bool() ? -5 : Global.width + 5, if (statePickInt == 0) GOOD else if (statePickInt == 2) BAD else VERY_BAD));
 		}
 
 		if (canSpawn)
-			new FlxTimer().start(spawnTime, (_) -> {
+			Global.createTimer().start(spawnTime, (_) -> {
 				spawnThoughts();
 			});
 	}
@@ -77,12 +82,12 @@ class FlyingThought extends FlxSprite {
 
 		this.type = type;
 
-		if (x > FlxG.width) {
+		if (x > Global.width) {
 			SPEED = type == GOOD ? FlxG.random.float(-45, -75) : FlxG.random.float(-65, -85);
 			destination = -5;
 		} else if (x < 0) {
 			SPEED = type == GOOD ? FlxG.random.float(45, 75) : FlxG.random.float(65, 85);
-			destination = FlxG.width + 5;
+			destination = Global.width + 5;
 
 			flipX = true;
 		}

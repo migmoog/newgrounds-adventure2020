@@ -4,6 +4,8 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 
+import ui.Controls;
+
 class Thought extends FlxSprite {
 	public var happiness:Int = 0;
 
@@ -23,10 +25,10 @@ class Thought extends FlxSprite {
 	override function update(elapsed:Float) {
 		animation.play('think');
 
-		var left:Bool = FlxG.keys.anyPressed([LEFT, A]);
-		var right:Bool = FlxG.keys.anyPressed([RIGHT, D]);
-		var up:Bool = FlxG.keys.anyPressed([UP, W]);
-		var down:Bool = FlxG.keys.anyPressed([DOWN, S]); 
+		var left:Bool = Controls.pressed.LEFT;
+		var right:Bool = Controls.pressed.RIGHT;
+		var up:Bool = Controls.pressed.UP;
+		var down:Bool = Controls.pressed.DOWN;
 
 		#if web
 		if (left && right)

@@ -4,6 +4,13 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 
+import ui.Controls;
+#if ADVENT
+import utils.OverlayGlobal as Global;
+#else
+import utils.Global;
+#end
+
 class GameOver extends FlxState {
 	var endGraphic:FlxSprite;
 
@@ -15,8 +22,8 @@ class GameOver extends FlxState {
 	}
 
 	override function update(elapsed:Float) {
-		if (FlxG.keys.pressed.A) {
-			FlxG.switchState(new ThinkPositive());
+		if (Controls.pressed.A) {
+			Global.switchState(new ThinkPositive());
 		}
 
 		super.update(elapsed);
