@@ -29,6 +29,7 @@
 
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
+	<classpath name="standAloneSource" />
 	<assets path="assets" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
@@ -45,6 +46,9 @@
 	<!--<haxelib name="nape-haxe4" />-->
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
+
+	<!--When running separately from Advent-->
+	<haxedef name="STAND_ALONE"/>
 
 	<!--Enable the Flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->
