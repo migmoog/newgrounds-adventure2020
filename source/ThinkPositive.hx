@@ -35,7 +35,7 @@ class ThinkPositive extends FlxState {
 		Global.camera.bgColor = 0xff1f2f49;
 
 		if (FlxG.sound.music == null)
-			FlxG.sound.playMusic('assets/music/music.wav', 1, true);
+			FlxG.sound.playMusic('assets/music/music.mp3', 1, true);
 
 		floor = new FlxSprite(0, 99).loadGraphic('assets/images/floor.png', false);
 		add(floor);
