@@ -32,7 +32,7 @@ class ThinkPositive extends FlxState {
 	var happinessDebugText:FlxText;
 
 	override public function create() {
-		Global.camera.bgColor = 0xff1f2f49;
+		FlxG.camera.bgColor = 0xff1f2f49;
 
 		if (FlxG.sound.music == null)
 			FlxG.sound.playMusic('assets/music/music.mp3', 1, true);
