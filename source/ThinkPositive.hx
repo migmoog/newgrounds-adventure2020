@@ -90,7 +90,12 @@ class ThinkPositive extends FlxState {
 		if (faceMeter.happiness <= faceMeter.minHappy)
 			Global.switchState(new GameOver());
 		else if (faceMeter.happiness >= faceMeter.maxHappy)
+		{
+			#if ADVENT
+			data.NGio.unlockMedalByName("positivity");
+			#end
 			Global.switchState(new GameWin());
+		}
 
 		super.update(elapsed);
 	}
