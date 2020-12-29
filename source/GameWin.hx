@@ -15,7 +15,7 @@ class GameWin extends FlxState {
 	var endGraphic:FlxSprite;
 	
 	override public function create() {
-		endGraphic = new FlxSprite(0, 0).loadGraphic('assets/images/gamewin.png'); 
+		endGraphic = new FlxSprite(0, 0).loadGraphic(Global.asset('assets/images/gamewin.png')); 
 		add(endGraphic);
 		
 		super.create();

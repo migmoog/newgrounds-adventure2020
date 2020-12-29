@@ -35,9 +35,9 @@ class ThinkPositive extends FlxState {
 		FlxG.camera.bgColor = 0xff1f2f49;
 
 		if (FlxG.sound.music == null)
-			FlxG.sound.playMusic('assets/music/music.mp3', 1, true);
+			FlxG.sound.playMusic(Global.asset('assets/music/music.mp3'), 1, true);
 
-		floor = new FlxSprite(0, 99).loadGraphic('assets/images/floor.png', false);
+		floor = new FlxSprite(0, 99).loadGraphic(Global.asset('assets/images/floor.png'), false);
 		add(floor);
 
 		guy = new Guy(this, Global.width / 2, 81);
@@ -46,7 +46,7 @@ class ThinkPositive extends FlxState {
 		add(thoughtCircs);
 
 		for (i in 0...3) {
-			thoughtCircs.add(new FlxSprite(guy.x, i * 10).loadGraphic('assets/images/thoughtchain.png', true, 4, 4));
+			thoughtCircs.add(new FlxSprite(guy.x, i * 10).loadGraphic(Global.asset('assets/images/thoughtchain.png'), true, 4, 4));
 			thoughtCircs.members[i].animation.frameIndex = i;
 		}
 

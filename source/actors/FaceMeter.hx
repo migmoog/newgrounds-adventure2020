@@ -3,6 +3,12 @@ package actors;
 import flixel.FlxSprite;
 import flixel.FlxState;
 
+#if ADVENT
+import utils.OverlayGlobal as Global;
+#else
+import utils.Global;
+#end
+
 class FaceMeter extends FlxSprite {
 	public var happiness:Int;
 	public var minHappy:Int = -7;
@@ -10,7 +16,7 @@ class FaceMeter extends FlxSprite {
 
 	public function new(scene:FlxState, x:Float, y:Float) {
 		super(x, y);
-		loadGraphic('assets/images/facemeter.png', true, 16, 16);
+		loadGraphic(Global.asset('assets/images/facemeter.png'), true, 16, 16);
 
 		scene.add(this);
 	}
