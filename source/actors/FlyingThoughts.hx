@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
+import flixel.util.FlxTimer;
 
 #if ADVENT
 import utils.OverlayGlobal as Global;
@@ -30,7 +31,7 @@ class FlyingThoughts extends FlxGroup {
 
 		canSpawn = true;
 		if (canSpawn)
-			Global.createTimer().start(spawnTime, (_) -> {
+			new FlxTimer().start(spawnTime, (_) -> {
 				spawnThoughts();
 			});
 	}
@@ -42,7 +43,7 @@ class FlyingThoughts extends FlxGroup {
 		}
 
 		if (canSpawn)
-			Global.createTimer().start(spawnTime, (_) -> {
+			new FlxTimer().start(spawnTime, (_) -> {
 				spawnThoughts();
 			});
 	}
@@ -108,11 +109,11 @@ class FlyingThought extends FlxSprite {
 	function pickSprite(type:FlyingThoughtType) {
 		switch (type) {
 			case GOOD:
-				return 'assets/images/goodthought.png';
+				return Global.asset('assets/images/goodthought.png');
 			case BAD:
-				return 'assets/images/badthought.png';
+				return Global.asset('assets/images/badthought.png');
 			case VERY_BAD:
-				return 'assets/images/verybadthought.png';
+				return Global.asset('assets/images/verybadthought.png');
 		}
 	}
 }

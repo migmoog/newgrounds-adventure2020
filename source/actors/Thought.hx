@@ -5,6 +5,11 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 
 import ui.Controls;
+#if ADVENT
+import utils.OverlayGlobal as Global;
+#else
+import utils.Global;
+#end
 
 class Thought extends FlxSprite {
 	public var happiness:Int = 0;
@@ -14,7 +19,7 @@ class Thought extends FlxSprite {
 	public function new(scene:FlxState, x:Float, y:Float) {
 		super(x, y);
 
-		loadGraphic('assets/images/thought-bubble.png', true, 16, 16);
+		loadGraphic(Global.asset('assets/images/thought-bubble.png'), true, 16, 16);
 		setSize(8, 8);
 		centerOffsets();
 		animation.add('think', [0, 1, 2, 3], 4);

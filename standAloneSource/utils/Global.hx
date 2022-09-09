@@ -16,16 +16,13 @@ class Global
     inline static function get_width() return FlxG.width;
     public static var height(get, never):Int;
     inline static function get_height() return FlxG.height;
-    public static var camera(get, never):FlxCamera;
-    inline static function get_camera() return FlxG.camera;
+    public static var state(get, never):FlxState;
+    inline static function get_state() return FlxG.state;
     
     inline public static function switchState(state:FlxState)
     {
         FlxG.switchState(state);
     }
     
-    inline public static function createTimer()
-    {
-        return new FlxTimer();
-    }
+    inline static public function asset(path:String) return path;
 }
